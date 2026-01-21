@@ -5,14 +5,19 @@ import { motion, useAnimationControls } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 
-// Placeholder images - replace with actual design images later
+// Import actual design images
+import porfavor from "@/assets/carousel/porfavor.png";
+import skull from "@/assets/carousel/skull.png";
+import whoa from "@/assets/carousel/whoa.png";
+import robot from "@/assets/carousel/robot.svg";
+
 const designImages = [
-  "/placeholder.svg",
-  "/placeholder.svg",
-  "/placeholder.svg",
-  "/placeholder.svg",
-  "/placeholder.svg",
-  "/placeholder.svg",
+  porfavor,
+  skull,
+  whoa,
+  robot,
+  porfavor,
+  skull,
 ];
 
 export const StorySection = () => {
