@@ -1,16 +1,23 @@
 import { Link } from "react-router-dom";
 import { Shield, BadgeCheck, Truck, Instagram, Facebook } from "lucide-react";
 import logoDark from "@/assets/logo-dark.png";
+import visaIcon from "@/assets/payment/visa.svg";
+import mastercardIcon from "@/assets/payment/mastercard.svg";
+import amexIcon from "@/assets/payment/amex.svg";
+import paypalIcon from "@/assets/payment/paypal.svg";
+import klarnaIcon from "@/assets/payment/klarna.svg";
+import googlepayIcon from "@/assets/payment/googlepay.svg";
+import applepayIcon from "@/assets/payment/applepay.svg";
 
 export const Footer = () => {
   const paymentMethods = [
-    { name: 'Visa', bg: 'bg-[#1A1F71]', text: 'text-white font-bold italic' },
-    { name: 'MC', bg: 'bg-gradient-to-r from-[#EB001B] to-[#F79E1B]', text: 'text-white font-bold' },
-    { name: 'AMEX', bg: 'bg-[#006FCF]', text: 'text-white font-bold text-[8px]' },
-    { name: 'PayPal', bg: 'bg-[#003087]', text: 'text-white font-bold text-[8px]' },
-    { name: 'Klarna', bg: 'bg-[#FFB3C7]', text: 'text-black font-bold text-[8px]' },
-    { name: 'GPay', bg: 'bg-white', text: 'text-gray-700 font-medium text-[8px]' },
-    { name: 'Apple', bg: 'bg-black', text: 'text-white font-medium text-[8px]' },
+    { name: 'Visa', icon: visaIcon },
+    { name: 'Mastercard', icon: mastercardIcon },
+    { name: 'American Express', icon: amexIcon },
+    { name: 'PayPal', icon: paypalIcon },
+    { name: 'Klarna', icon: klarnaIcon },
+    { name: 'Google Pay', icon: googlepayIcon },
+    { name: 'Apple Pay', icon: applepayIcon },
   ];
 
   return (
@@ -141,9 +148,13 @@ export const Footer = () => {
                 {paymentMethods.map((method) => (
                   <div 
                     key={method.name}
-                    className={`h-7 w-11 ${method.bg} rounded flex items-center justify-center ${method.text}`}
+                    className="h-8 w-12 bg-background rounded flex items-center justify-center p-1.5"
                   >
-                    {method.name}
+                    <img 
+                      src={method.icon} 
+                      alt={method.name} 
+                      className="h-full w-full object-contain"
+                    />
                   </div>
                 ))}
               </div>
