@@ -33,7 +33,7 @@ export const Hero = () => {
             </Button>
             <Button asChild variant="outline" size="lg" className="border-2 border-background text-background hover:bg-background hover:text-foreground uppercase font-bold text-sm tracking-wider h-14 px-8 font-stencil bg-transparent">
               <a 
-                href="https://urban-artery.com/products/masterprodukt-individuelle-streetart" 
+                href="https://urban-artery.myshopify.com/products/masterprodukt-individuelle-streetart" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >
