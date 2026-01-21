@@ -5,12 +5,52 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
+// Placeholder images - replace with actual design images later
+const designImages = [
+  "/placeholder.svg",
+  "/placeholder.svg",
+  "/placeholder.svg",
+  "/placeholder.svg",
+  "/placeholder.svg",
+  "/placeholder.svg",
+];
+
 export const StorySection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-20 md:py-32 bg-foreground" ref={ref}>
+    <section className="py-20 md:py-32 bg-foreground overflow-hidden" ref={ref}>
+      {/* Infinite scrolling carousel */}
+      <div className="mb-12 md:mb-16">
+        <motion.div
+          className="flex gap-4"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 20,
+              ease: "linear",
+            },
+          }}
+        >
+          {/* Double the images for seamless loop */}
+          {[...designImages, ...designImages].map((src, index) => (
+            <div
+              key={index}
+              className="flex-shrink-0 w-32 md:w-48 aspect-[1/2] bg-background/10 overflow-hidden"
+            >
+              <img
+                src={src}
+                alt={`Design ${index + 1}`}
+                className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity"
+              />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
       <div className="container mx-auto px-4">
         <motion.div 
           className="max-w-4xl mx-auto text-center"
