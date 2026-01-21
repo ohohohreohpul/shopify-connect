@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { CartDrawer } from "./CartDrawer";
 import logoWhite from "@/assets/logo-white.png";
+import { cn } from "@/lib/utils";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <header className="sticky top-0 z-50 bg-header">
@@ -60,7 +62,12 @@ export const Header = () => {
               <li key={item.name}>
                 <Link
                   to={item.path}
-                  className="text-xs font-bold uppercase tracking-wider text-header-foreground hover:text-primary transition-colors font-stencil"
+                  className={cn(
+                    "text-xs font-bold uppercase tracking-wider transition-colors font-stencil",
+                    location.pathname === item.path
+                      ? "text-primary"
+                      : "text-header-foreground hover:text-primary"
+                  )}
                 >
                   {item.name}
                 </Link>
@@ -86,7 +93,12 @@ export const Header = () => {
                 <li key={item.name}>
                   <Link
                     to={item.path}
-                    className="block text-lg font-bold uppercase tracking-wider text-header-foreground hover:text-primary transition-colors font-stencil"
+                    className={cn(
+                      "block text-lg font-bold uppercase tracking-wider transition-colors font-stencil",
+                      location.pathname === item.path
+                        ? "text-primary"
+                        : "text-header-foreground hover:text-primary"
+                    )}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
