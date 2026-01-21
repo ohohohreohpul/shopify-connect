@@ -24,11 +24,14 @@ export const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 text-header-foreground hover:text-primary transition-colors"
+            className="md:hidden p-2 text-header-foreground hover:text-primary transition-colors"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
+          
+          {/* Spacer for desktop to keep logo centered */}
+          <div className="hidden md:block w-10" />
 
           {/* Logo */}
           <Link to="/" className="absolute left-1/2 -translate-x-1/2">
