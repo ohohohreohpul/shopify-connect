@@ -39,7 +39,7 @@ export const StorySection = () => {
           {[...designImages, ...designImages].map((src, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-32 md:w-48 aspect-[1/2] bg-background/10 overflow-hidden"
+              className="flex-shrink-0 w-48 md:w-64 aspect-[4/3] bg-background/10 overflow-hidden"
             >
               <img
                 src={src}
