@@ -36,9 +36,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     });
   };
 
+  const shopifyUrl = "https://urban-artery.com/products/masterprodukt-individuelle-streetart";
+
   return (
-    <Link 
-      to={`/product/${node.handle}`} 
+    <a 
+      href={shopifyUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       className="group block"
     >
       <div className="relative overflow-hidden bg-muted aspect-[3/4]">
@@ -87,6 +91,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           {node.title}
         </h3>
       </div>
-    </Link>
+    </a>
   );
 };
