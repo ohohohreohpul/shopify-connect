@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-
 const HERO_VIDEO_URL = "https://cdn.shopify.com/videos/c/o/v/f6553138823543e7a732c900a191f151.mov";
 
 export const Hero = () => {
@@ -32,13 +31,9 @@ export const Hero = () => {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="border-2 border-background text-background hover:bg-background hover:text-foreground uppercase font-bold text-sm tracking-wider h-14 px-8 font-stencil bg-transparent">
-              <a 
-                href="https://urban-artery.myshopify.com/products/masterprodukt-individuelle-streetart" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
+              <Link to="/konfigurator">
                 Konfigurator
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
