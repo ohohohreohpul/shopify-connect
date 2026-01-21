@@ -70,12 +70,12 @@ export const StorySection = () => {
           {[...designImages, ...designImages].map((src, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-48 md:w-64 aspect-[4/3] bg-background/10 overflow-hidden relative group cursor-pointer transition-all duration-300 hover:shadow-[0_0_0_3px_hsl(var(--primary))] hover:z-10"
+              className="flex-shrink-0 w-48 md:w-64 aspect-[4/3] bg-background/10 overflow-hidden relative cursor-pointer"
             >
               <img
                 src={src}
                 alt={`Design ${index + 1}`}
-                className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
               />
             </div>
           ))}
