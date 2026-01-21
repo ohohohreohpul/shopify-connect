@@ -60,7 +60,8 @@ export const Footer = () => {
         }}
       >
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          {/* Centered navigation grid */}
+          <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-20 lg:gap-32 mb-16">
             {/* Hilfe links */}
             <div>
               <h3 className="uppercase text-sm tracking-wider mb-6 font-stencil">Hilfe</h3>
@@ -114,29 +115,28 @@ export const Footer = () => {
                 ))}
               </ul>
             </div>
+          </div>
 
-            {/* Social & Brand */}
-            <div className="flex flex-col items-start md:items-end">
-              <img 
-                src={logoDark} 
-                alt="Urban Artery" 
-                className="h-12 w-auto brightness-0 invert mb-6"
-              />
-              <div className="flex gap-4">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="h-10 w-10 bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
-                  <Instagram className="h-5 w-5" />
-                </a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="h-10 w-10 bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
-                  <Facebook className="h-5 w-5" />
-                </a>
-              </div>
+          {/* Logo and Social - Centered above payment */}
+          <div className="flex flex-col items-center mb-8">
+            <img 
+              src={logoDark} 
+              alt="Urban Artery" 
+              className="h-10 w-auto brightness-0 invert mb-4"
+            />
+            <div className="flex gap-3">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="h-9 w-9 bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="h-9 w-9 bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
+                <Facebook className="h-4 w-4" />
+              </a>
             </div>
           </div>
 
-          {/* Payment Icons & Copyright - same section */}
+          {/* Payment Icons & Copyright */}
           <div className="border-t border-background/10 pt-6">
             <div className="flex flex-col items-center gap-4">
-              {/* Payment Icons */}
               <div className="flex flex-wrap justify-center gap-2">
                 {paymentMethods.map((method) => (
                   <div 
