@@ -5,6 +5,13 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Try multiple possible token endpoints
+const TOKEN_ENDPOINTS = [
+  'https://api.zakeke.com/token',
+  'https://api.zakeke.com/oauth/token',
+  'https://api.zakeke.com/v1/token',
+];
+
 serve(async (req) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -23,83 +30,146 @@ serve(async (req) => {
       );
     }
 
-    console.log('Attempting Zakeke OAuth with body params...');
+    console.log('Zakeke credentials loaded:');
     console.log('Client ID:', clientId);
     console.log('Secret Key length:', secretKey.length);
+    console.log('Secret Key first 5 chars:', secretKey.substring(0, 5));
+    console.log('Secret Key last 5 chars:', secretKey.substring(secretKey.length - 5));
 
-    // Try with credentials in body (alternative method per Zakeke docs)
-    const tokenResponse = await fetch('https://api.zakeke.com/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
-      },
-      body: new URLSearchParams({
-        grant_type: 'client_credentials',
-        client_id: clientId,
-        client_secret: secretKey,
-      }),
-    });
+    const basicAuth = btoa(`${clientId}:${secretKey}`);
+    let lastError = null;
+    let lastStatus = 0;
 
-    const responseText = await tokenResponse.text();
-    console.log('Zakeke response status:', tokenResponse.status);
-    console.log('Zakeke response headers:', JSON.stringify(Object.fromEntries(tokenResponse.headers.entries())));
-    console.log('Zakeke response body:', responseText || '(empty)');
+    // Try each endpoint
+    for (const endpoint of TOKEN_ENDPOINTS) {
+      console.log(`\n=== Trying endpoint: ${endpoint} ===`);
 
-    if (!tokenResponse.ok) {
-      // If body method fails, try Basic auth
-      console.log('Body method failed, trying Basic auth...');
-      const basicAuth = btoa(`${clientId}:${secretKey}`);
-      
-      const basicResponse = await fetch('https://api.zakeke.com/token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': `Basic ${basicAuth}`,
-          'Accept': 'application/json',
-        },
-        body: new URLSearchParams({
-          grant_type: 'client_credentials',
-        }),
-      });
-
-      const basicText = await basicResponse.text();
-      console.log('Basic auth response status:', basicResponse.status);
-      console.log('Basic auth response body:', basicText || '(empty)');
-
-      if (!basicResponse.ok) {
-        return new Response(
-          JSON.stringify({ 
-            error: 'Failed to obtain Zakeke token', 
-            bodyMethodStatus: tokenResponse.status,
-            basicAuthStatus: basicResponse.status,
-            details: basicText || responseText || 'Empty response from Zakeke'
+      // Method 1: Basic Auth with S2S access
+      try {
+        console.log('Trying Basic auth with S2S access...');
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Basic ${basicAuth}`,
+            'Accept': 'application/json',
+          },
+          body: new URLSearchParams({
+            grant_type: 'client_credentials',
+            access_type: 'S2S',
           }),
-          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
+        });
+
+        const text = await response.text();
+        console.log('Response status:', response.status);
+        console.log('Response body:', text || '(empty)');
+        lastStatus = response.status;
+
+        if (response.ok && text) {
+          const data = JSON.parse(text);
+          console.log('SUCCESS with Basic auth S2S!');
+          return new Response(
+            JSON.stringify({
+              access_token: data.access_token || data['access-token'],
+              expires_in: data.expires_in,
+              token_type: data.token_type,
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+        lastError = text || 'Empty response';
+      } catch (e) {
+        console.log('Basic auth S2S error:', e);
+        lastError = String(e);
       }
 
-      const basicData = JSON.parse(basicText);
-      return new Response(
-        JSON.stringify({
-          access_token: basicData.access_token || basicData['access-token'],
-          expires_in: basicData.expires_in,
-          token_type: basicData.token_type,
-        }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      // Method 2: Basic Auth with C2S access (default)
+      try {
+        console.log('Trying Basic auth with C2S access...');
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Basic ${basicAuth}`,
+            'Accept': 'application/json',
+          },
+          body: new URLSearchParams({
+            grant_type: 'client_credentials',
+          }),
+        });
+
+        const text = await response.text();
+        console.log('Response status:', response.status);
+        console.log('Response body:', text || '(empty)');
+        lastStatus = response.status;
+
+        if (response.ok && text) {
+          const data = JSON.parse(text);
+          console.log('SUCCESS with Basic auth C2S!');
+          return new Response(
+            JSON.stringify({
+              access_token: data.access_token || data['access-token'],
+              expires_in: data.expires_in,
+              token_type: data.token_type,
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+        lastError = text || 'Empty response';
+      } catch (e) {
+        console.log('Basic auth C2S error:', e);
+        lastError = String(e);
+      }
+
+      // Method 3: Body params
+      try {
+        console.log('Trying body params method...');
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+          },
+          body: new URLSearchParams({
+            grant_type: 'client_credentials',
+            client_id: clientId,
+            client_secret: secretKey,
+          }),
+        });
+
+        const text = await response.text();
+        console.log('Response status:', response.status);
+        console.log('Response body:', text || '(empty)');
+        lastStatus = response.status;
+
+        if (response.ok && text) {
+          const data = JSON.parse(text);
+          console.log('SUCCESS with body params!');
+          return new Response(
+            JSON.stringify({
+              access_token: data.access_token || data['access-token'],
+              expires_in: data.expires_in,
+              token_type: data.token_type,
+            }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+        lastError = text || 'Empty response';
+      } catch (e) {
+        console.log('Body params error:', e);
+        lastError = String(e);
+      }
     }
 
-    const tokenData = JSON.parse(responseText);
-    console.log('Zakeke token obtained successfully');
-
+    // All attempts failed
     return new Response(
-      JSON.stringify({
-        access_token: tokenData.access_token || tokenData['access-token'],
-        expires_in: tokenData.expires_in,
-        token_type: tokenData.token_type,
+      JSON.stringify({ 
+        error: 'Failed to obtain Zakeke token from all endpoints', 
+        lastStatus,
+        details: lastError,
+        triedEndpoints: TOKEN_ENDPOINTS,
       }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
   } catch (error) {
