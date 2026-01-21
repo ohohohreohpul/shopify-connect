@@ -63,10 +63,8 @@ export const Header = () => {
                 <Link
                   to={item.path}
                   className={cn(
-                    "text-xs font-bold uppercase tracking-wider transition-colors font-stencil",
-                    location.pathname === item.path
-                      ? "text-primary"
-                      : "text-header-foreground hover:text-primary"
+                    "text-xs font-bold uppercase tracking-wider font-stencil link-highlight",
+                    location.pathname === item.path && "text-primary"
                   )}
                 >
                   {item.name}
@@ -94,10 +92,8 @@ export const Header = () => {
                   <Link
                     to={item.path}
                     className={cn(
-                      "block text-lg font-bold uppercase tracking-wider transition-colors font-stencil",
-                      location.pathname === item.path
-                        ? "text-primary"
-                        : "text-header-foreground hover:text-primary"
+                      "inline-block text-lg font-bold uppercase tracking-wider font-stencil link-highlight",
+                      location.pathname === item.path && "text-primary"
                     )}
                     onClick={() => setIsMenuOpen(false)}
                   >
