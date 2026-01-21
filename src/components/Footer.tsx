@@ -59,7 +59,7 @@ export const Footer = () => {
                 <h3 className="uppercase text-sm tracking-wider font-stencil">Weltweite Lieferung</h3>
                 <p className="text-sm text-background/60 mt-1 mb-2">Sicher verpackt mit unseren Versandpartnern.</p>
                 <div className="flex items-center gap-3">
-                  <div className="h-8 w-14 bg-background rounded flex items-center justify-center p-0.5">
+                  <div className="h-10 w-24 bg-background rounded flex items-center justify-center p-0">
                     <img src={dhlIcon} alt="DHL" className="h-full w-full object-contain" />
                   </div>
                   <div className="h-8 w-14 bg-background rounded flex items-center justify-center p-0.5">
