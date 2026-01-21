@@ -54,7 +54,7 @@ export const Header = () => {
         <div className="container mx-auto px-4">
           <ul className="flex justify-center gap-8 py-3">
             {[
-              { name: 'So geht\'s', path: '/so-gehts' },
+              { name: 'Inspiration', path: '/inspiration' },
               { name: 'Über uns', path: '/ueber-uns' },
               { name: 'Auftragsarbeiten', path: '/auftragsarbeiten' },
               { name: 'Kontakt', path: '/kontakt' },
@@ -84,7 +84,7 @@ export const Header = () => {
             <ul className="space-y-4">
               {[
                 { name: 'Startseite', path: '/' },
-                { name: 'So geht\'s', path: '/so-gehts' },
+                { name: 'Inspiration', path: '/inspiration' },
                 { name: 'Über uns', path: '/ueber-uns' },
                 { name: 'Auftragsarbeiten', path: '/auftragsarbeiten' },
                 { name: 'Kontakt', path: '/kontakt' },
