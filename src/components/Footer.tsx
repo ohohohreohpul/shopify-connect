@@ -4,28 +4,35 @@ import logoDark from "@/assets/logo-dark.png";
 
 export const Footer = () => {
   return (
-    <footer>
-      {/* Trust Badges - White Background */}
-      <div className="bg-background py-16 border-b border-foreground/10">
+    <footer className="bg-foreground text-background">
+      {/* Trust Badges */}
+      <div className="border-b border-background/10 py-12">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="flex flex-col items-center text-center gap-4">
-              <Shield className="h-12 w-12 text-foreground stroke-[1.5]" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex items-center gap-4">
+              <div className="h-14 w-14 bg-primary flex items-center justify-center">
+                <Shield className="h-7 w-7 text-primary-foreground" />
+              </div>
               <div>
-                <h3 className="uppercase text-sm tracking-wider font-stencil text-foreground">Sichere Bezahlmethoden</h3>
+                <h3 className="uppercase text-sm tracking-wider font-stencil">Sichere Bezahlmethoden</h3>
               </div>
             </div>
-            <div className="flex flex-col items-center text-center gap-4">
-              <BadgeCheck className="h-12 w-12 text-foreground stroke-[1.5]" />
+            <div className="flex items-center gap-4">
+              <div className="h-14 w-14 bg-primary flex items-center justify-center">
+                <BadgeCheck className="h-7 w-7 text-primary-foreground" />
+              </div>
               <div>
-                <h3 className="uppercase text-sm tracking-wider font-stencil text-foreground">Unsere Zufriedenheitsgarantie</h3>
-                <p className="text-sm text-foreground/60 mt-1">Passt nicht? Schick's zurück.<br />30 Tage lang.</p>
+                <h3 className="uppercase text-sm tracking-wider font-stencil">Zufriedenheitsgarantie</h3>
+                <p className="text-sm text-background/60">30 Tage Rückgaberecht</p>
               </div>
             </div>
-            <div className="flex flex-col items-center text-center gap-4">
-              <Truck className="h-12 w-12 text-foreground stroke-[1.5]" />
+            <div className="flex items-center gap-4">
+              <div className="h-14 w-14 bg-primary flex items-center justify-center">
+                <Truck className="h-7 w-7 text-primary-foreground" />
+              </div>
               <div>
-                <h3 className="uppercase text-sm tracking-wider font-stencil text-foreground">Weltweite Lieferung</h3>
+                <h3 className="uppercase text-sm tracking-wider font-stencil">Weltweite Lieferung</h3>
+                <p className="text-sm text-background/60">Sicher verpackt</p>
               </div>
             </div>
           </div>
@@ -34,7 +41,7 @@ export const Footer = () => {
 
       {/* Main footer with background image */}
       <div 
-        className="py-16 bg-foreground text-background relative"
+        className="py-16 relative"
         style={{
           backgroundImage: 'url(/images/footer-bg.jpg)',
           backgroundSize: 'cover',
@@ -119,19 +126,17 @@ export const Footer = () => {
       </div>
 
       {/* Payment methods & Copyright */}
-      <div className="bg-foreground border-t border-background/10 py-6">
+      <div className="border-t border-background/10 py-6">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center gap-4">
             {/* Payment Icons */}
             <div className="flex flex-wrap justify-center gap-2">
-              {['amex', 'apple-pay', 'mastercard', 'visa', 'paypal', 'klarna', 'google-pay'].map((payment) => (
+              {['Amex', 'Pay', 'MC', 'Visa', 'PayPal', 'Klarna', 'GPay'].map((payment) => (
                 <div 
                   key={payment}
                   className="h-8 w-12 bg-background rounded flex items-center justify-center text-[10px] uppercase font-medium text-foreground"
                 >
-                  {payment === 'apple-pay' ? 'Pay' : 
-                   payment === 'google-pay' ? 'GPay' : 
-                   payment.charAt(0).toUpperCase() + payment.slice(1, 4)}
+                  {payment}
                 </div>
               ))}
             </div>
