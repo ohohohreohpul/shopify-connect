@@ -63,7 +63,7 @@ export const Header = () => {
                 <Link
                   to={item.path}
                   className={cn(
-                    "text-xs font-bold uppercase tracking-wider font-stencil link-highlight",
+                    "text-xs font-bold uppercase tracking-wider font-stencil text-header-foreground link-highlight",
                     location.pathname === item.path && "text-primary"
                   )}
                 >
@@ -92,7 +92,7 @@ export const Header = () => {
                   <Link
                     to={item.path}
                     className={cn(
-                      "inline-block text-lg font-bold uppercase tracking-wider font-stencil link-highlight",
+                      "inline-block text-lg font-bold uppercase tracking-wider font-stencil text-header-foreground link-highlight",
                       location.pathname === item.path && "text-primary"
                     )}
                     onClick={() => setIsMenuOpen(false)}
