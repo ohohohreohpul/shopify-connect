@@ -41,7 +41,7 @@ export const Footer = () => {
 
       {/* Main footer with background image */}
       <div 
-        className="py-16 relative"
+        className="pt-16 pb-8 relative"
         style={{
           backgroundImage: 'url(/images/footer-bg.jpg)',
           backgroundSize: 'cover',
@@ -50,7 +50,7 @@ export const Footer = () => {
         }}
       >
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             {/* Hilfe links */}
             <div>
               <h3 className="uppercase text-sm tracking-wider mb-6 font-stencil">Hilfe</h3>
@@ -122,27 +122,26 @@ export const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Payment methods & Copyright */}
-      <div className="border-t border-background/10 py-6">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center gap-4">
-            {/* Payment Icons */}
-            <div className="flex flex-wrap justify-center gap-2">
-              {['Amex', 'Pay', 'MC', 'Visa', 'PayPal', 'Klarna', 'GPay'].map((payment) => (
-                <div 
-                  key={payment}
-                  className="h-8 w-12 bg-background rounded flex items-center justify-center text-[10px] uppercase font-medium text-foreground"
-                >
-                  {payment}
-                </div>
-              ))}
+          {/* Payment Icons & Copyright - same section */}
+          <div className="border-t border-background/10 pt-6">
+            <div className="flex flex-col items-center gap-4">
+              {/* Payment Icons */}
+              <div className="flex flex-wrap justify-center gap-2">
+                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0169695890db3db16bfe.svg" alt="American Express" className="h-8" />
+                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/ae9ceec48b1dc489596c.svg" alt="Apple Pay" className="h-8" />
+                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/f11b90c2972f3811f2d5.svg" alt="Google Pay" className="h-8" />
+                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0e58891c7bb9c2c2ad2f.svg" alt="Klarna" className="h-8" />
+                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/37fc607cb2a22ff4a799.svg" alt="Maestro" className="h-8" />
+                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/5e2d37aa68a62c3d1f15.svg" alt="Mastercard" className="h-8" />
+                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/925e1310ee335ea61faa.svg" alt="PayPal" className="h-8" />
+                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/f24f2f4ebe77b7e00f7d.svg" alt="Shop Pay" className="h-8" />
+                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/4fae6e4c47f58deb4c38.svg" alt="Visa" className="h-8" />
+              </div>
+              <p className="text-xs text-center text-background/40 uppercase tracking-wider font-stencil">
+                © {new Date().getFullYear()} Urban Artery. Alle Rechte vorbehalten.
+              </p>
             </div>
-            <p className="text-xs text-center text-background/40 uppercase tracking-wider font-stencil">
-              © {new Date().getFullYear()} Urban Artery. Alle Rechte vorbehalten.
-            </p>
           </div>
         </div>
       </div>
