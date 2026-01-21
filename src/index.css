@@ -148,3 +148,31 @@
     scrollbar-width: none;
   }
 }
+
+/* Highlighter link animation */
+.link-highlight {
+  position: relative;
+  z-index: 1;
+}
+
+.link-highlight::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  top: -2px;
+  bottom: -2px;
+  background-color: hsl(var(--primary));
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+}
+
+.link-highlight:hover::before {
+  transform: scaleX(1);
+}
+
+.link-highlight:hover {
+  color: hsl(var(--primary-foreground));
+}
