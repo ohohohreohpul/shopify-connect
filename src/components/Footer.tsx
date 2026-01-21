@@ -68,10 +68,14 @@ export const Footer = () => {
             <div>
               <h3 className="uppercase text-sm tracking-wider mb-6">Shop</h3>
               <ul className="space-y-3">
-                {['Alle Werke', 'Neue Motive', 'Foto-Kunst', 'Geschenkgutschein'].map((item) => (
-                  <li key={item}>
-                    <Link to="/" className="text-sm text-background/60 hover:text-primary transition-colors">
-                      {item}
+                {[
+                  { name: 'So funktioniert\'s', path: '/so-gehts' },
+                  { name: 'Auftragsarbeiten', path: '/auftragsarbeiten' },
+                  { name: 'Verpackung & Versand', path: '/versand' },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <Link to={item.path} className="text-sm text-background/60 hover:text-primary transition-colors">
+                      {item.name}
                     </Link>
                   </li>
                 ))}
@@ -80,12 +84,16 @@ export const Footer = () => {
 
             {/* Info links */}
             <div>
-              <h3 className="uppercase text-sm tracking-wider mb-6">Info</h3>
+              <h3 className="uppercase text-sm tracking-wider mb-6">Hilfe</h3>
               <ul className="space-y-3">
-                {['Über uns', 'FAQ & Hilfe', 'Kontakt', 'Widerrufsbelehrung'].map((item) => (
-                  <li key={item}>
-                    <Link to="/" className="text-sm text-background/60 hover:text-primary transition-colors">
-                      {item}
+                {[
+                  { name: 'Über uns', path: '/ueber-uns' },
+                  { name: 'FAQ', path: '/faq' },
+                  { name: 'Kontakt', path: '/kontakt' },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <Link to={item.path} className="text-sm text-background/60 hover:text-primary transition-colors">
+                      {item.name}
                     </Link>
                   </li>
                 ))}
@@ -96,10 +104,14 @@ export const Footer = () => {
             <div>
               <h3 className="uppercase text-sm tracking-wider mb-6">Rechtliches</h3>
               <ul className="space-y-3">
-                {['Impressum', 'Datenschutz', 'AGB', 'Versand & Lieferung'].map((item) => (
-                  <li key={item}>
-                    <Link to="/" className="text-sm text-background/60 hover:text-primary transition-colors">
-                      {item}
+                {[
+                  { name: 'Impressum', path: '/impressum' },
+                  { name: 'Datenschutz', path: '/datenschutz' },
+                  { name: 'AGB & Widerrufsrecht', path: '/agb' },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <Link to={item.path} className="text-sm text-background/60 hover:text-primary transition-colors">
+                      {item.name}
                     </Link>
                   </li>
                 ))}
