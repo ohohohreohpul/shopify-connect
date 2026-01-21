@@ -2,17 +2,13 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-// Video will be imported here once uploaded
-// import heroVideo from "@/assets/hero-video.mp4";
+const HERO_VIDEO_URL = "https://cdn.shopify.com/videos/c/o/v/f6553138823543e7a732c900a191f151.mov";
 
 export const Hero = () => {
   return (
-    <section className="relative bg-foreground overflow-hidden">
-      {/* Video Background - placeholder until video is uploaded */}
+    <section className="relative bg-foreground overflow-hidden min-h-[70vh] md:min-h-[80vh] flex items-center">
+      {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        {/* Replace this div with video once uploaded */}
-        <div className="w-full h-full bg-foreground" />
-        {/* 
         <video 
           autoPlay 
           muted 
@@ -20,11 +16,11 @@ export const Hero = () => {
           playsInline
           className="w-full h-full object-cover"
         >
-          <source src={heroVideo} type="video/mp4" />
+          <source src={HERO_VIDEO_URL} type="video/quicktime" />
+          <source src={HERO_VIDEO_URL} type="video/mp4" />
         </video>
-        */}
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-foreground/60" />
+        <div className="absolute inset-0 bg-foreground/50" />
       </div>
       
       <div className="container mx-auto px-4 py-24 md:py-32 lg:py-40 relative z-10">
