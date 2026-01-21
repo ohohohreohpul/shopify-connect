@@ -12,14 +12,12 @@ export const Hero = () => {
           <source src={HERO_VIDEO_URL} type="video/quicktime" />
           <source src={HERO_VIDEO_URL} type="video/mp4" />
         </video>
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-foreground/50" />
       </div>
       
-      <div className="container mx-auto px-4 py-24 md:py-32 lg:py-40 relative z-10 text-center">
+      <div className="container mx-auto px-4 pb-12 md:pb-16 mt-auto relative z-10 text-center">
         <div className="max-w-4xl mx-auto">
           {/* Main headline only */}
-          <h1 className="text-3xl md:text-5xl lg:text-6xl leading-[0.95] text-background font-stencil uppercase mb-8">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl leading-[0.95] text-background font-stencil uppercase mb-8 drop-shadow-lg">
             Dein Street-Art Unikat.
           </h1>
           
