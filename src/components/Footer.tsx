@@ -100,7 +100,7 @@ export const Footer = () => {
                   <li key={item.name}>
                     <Link 
                       to={item.path} 
-                      className="text-sm text-background/70 hover:text-primary-foreground hover:bg-primary px-1 -mx-1 transition-all duration-200"
+                      className="text-sm text-background/70 link-highlight"
                     >
                       {item.name}
                     </Link>
@@ -121,7 +121,7 @@ export const Footer = () => {
                   <li key={item.name}>
                     <Link 
                       to={item.path} 
-                      className="text-sm text-background/70 hover:text-primary-foreground hover:bg-primary px-1 -mx-1 transition-all duration-200"
+                      className="text-sm text-background/70 link-highlight"
                     >
                       {item.name}
                     </Link>
@@ -142,7 +142,7 @@ export const Footer = () => {
                   <li key={item.name}>
                     <Link 
                       to={item.path} 
-                      className="text-sm text-background/70 hover:text-primary-foreground hover:bg-primary px-1 -mx-1 transition-all duration-200"
+                      className="text-sm text-background/70 link-highlight"
                     >
                       {item.name}
                     </Link>
