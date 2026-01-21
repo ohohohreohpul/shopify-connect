@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 // Placeholder images - replace with actual design images later
 const designImages = [
@@ -18,11 +18,16 @@ const designImages = [
 export const StorySection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <section className="py-20 md:py-32 bg-foreground overflow-hidden" ref={ref}>
       {/* Infinite scrolling carousel */}
-      <div className="mb-12 md:mb-16">
+      <div 
+        className="mb-12 md:mb-16"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <motion.div
           className="flex gap-4"
           animate={{ x: ["0%", "-50%"] }}
@@ -34,19 +39,28 @@ export const StorySection = () => {
               ease: "linear",
             },
           }}
+          style={{ animationPlayState: isHovered ? "paused" : "running" }}
         >
           {/* Double the images for seamless loop */}
           {[...designImages, ...designImages].map((src, index) => (
-            <div
+            <motion.div
               key={index}
-              className="flex-shrink-0 w-48 md:w-64 aspect-[4/3] bg-background/10 overflow-hidden"
+              className="flex-shrink-0 w-48 md:w-64 aspect-[4/3] bg-background/10 overflow-visible relative group cursor-pointer"
+              whileHover={{ scale: 1.1, zIndex: 10 }}
+              transition={{ duration: 0.3 }}
             >
+              {/* Animated pink border */}
+              <motion.div 
+                className="absolute inset-0 border-4 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                initial={{ scale: 0.8 }}
+                whileHover={{ scale: 1 }}
+              />
               <img
                 src={src}
                 alt={`Design ${index + 1}`}
-                className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity"
+                className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300"
               />
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>
