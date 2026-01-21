@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { IntroSection } from "@/components/IntroSection";
 import { ProductSection } from "@/components/ProductSection";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
 import { VideoSection } from "@/components/VideoSection";
@@ -40,6 +41,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <Hero />
+      <IntroSection />
       
       <main>
         {error ? (
