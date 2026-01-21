@@ -23,32 +23,70 @@ serve(async (req) => {
       );
     }
 
-    console.log('Requesting Zakeke OAuth token with Basic auth...');
-    console.log('Client ID length:', clientId.length);
+    console.log('Attempting Zakeke OAuth with body params...');
+    console.log('Client ID:', clientId);
+    console.log('Secret Key length:', secretKey.length);
 
-    // Use Basic authentication (recommended by Zakeke docs)
-    const basicAuth = btoa(`${clientId}:${secretKey}`);
-
+    // Try with credentials in body (alternative method per Zakeke docs)
     const tokenResponse = await fetch('https://api.zakeke.com/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Basic ${basicAuth}`,
+        'Accept': 'application/json',
       },
       body: new URLSearchParams({
         grant_type: 'client_credentials',
+        client_id: clientId,
+        client_secret: secretKey,
       }),
     });
 
     const responseText = await tokenResponse.text();
     console.log('Zakeke response status:', tokenResponse.status);
-    console.log('Zakeke response:', responseText.substring(0, 200));
+    console.log('Zakeke response headers:', JSON.stringify(Object.fromEntries(tokenResponse.headers.entries())));
+    console.log('Zakeke response body:', responseText || '(empty)');
 
     if (!tokenResponse.ok) {
-      console.error('Zakeke token request failed:', tokenResponse.status, responseText);
+      // If body method fails, try Basic auth
+      console.log('Body method failed, trying Basic auth...');
+      const basicAuth = btoa(`${clientId}:${secretKey}`);
+      
+      const basicResponse = await fetch('https://api.zakeke.com/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': `Basic ${basicAuth}`,
+          'Accept': 'application/json',
+        },
+        body: new URLSearchParams({
+          grant_type: 'client_credentials',
+        }),
+      });
+
+      const basicText = await basicResponse.text();
+      console.log('Basic auth response status:', basicResponse.status);
+      console.log('Basic auth response body:', basicText || '(empty)');
+
+      if (!basicResponse.ok) {
+        return new Response(
+          JSON.stringify({ 
+            error: 'Failed to obtain Zakeke token', 
+            bodyMethodStatus: tokenResponse.status,
+            basicAuthStatus: basicResponse.status,
+            details: basicText || responseText || 'Empty response from Zakeke'
+          }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      const basicData = JSON.parse(basicText);
       return new Response(
-        JSON.stringify({ error: 'Failed to obtain Zakeke token', details: responseText }),
-        { status: tokenResponse.status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({
+          access_token: basicData.access_token || basicData['access-token'],
+          expires_in: basicData.expires_in,
+          token_type: basicData.token_type,
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
