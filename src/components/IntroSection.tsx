@@ -52,7 +52,7 @@ export const IntroSection = () => {
             <motion.h2
               key={index}
               variants={lineVariants}
-              className="text-xl md:text-3xl lg:text-4xl leading-snug text-foreground md:whitespace-nowrap"
+              className={`text-xl md:text-3xl lg:text-4xl leading-snug text-foreground ${index === 0 ? 'lg:whitespace-nowrap' : 'md:whitespace-nowrap'}`}
             >
               {line}
             </motion.h2>
