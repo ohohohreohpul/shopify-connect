@@ -3,6 +3,16 @@ import { Shield, BadgeCheck, Truck, Instagram, Facebook } from "lucide-react";
 import logoDark from "@/assets/logo-dark.png";
 
 export const Footer = () => {
+  const paymentMethods = [
+    { name: 'Visa', bg: 'bg-[#1A1F71]', text: 'text-white font-bold italic' },
+    { name: 'MC', bg: 'bg-gradient-to-r from-[#EB001B] to-[#F79E1B]', text: 'text-white font-bold' },
+    { name: 'AMEX', bg: 'bg-[#006FCF]', text: 'text-white font-bold text-[8px]' },
+    { name: 'PayPal', bg: 'bg-[#003087]', text: 'text-white font-bold text-[8px]' },
+    { name: 'Klarna', bg: 'bg-[#FFB3C7]', text: 'text-black font-bold text-[8px]' },
+    { name: 'GPay', bg: 'bg-white', text: 'text-gray-700 font-medium text-[8px]' },
+    { name: 'Apple', bg: 'bg-black', text: 'text-white font-medium text-[8px]' },
+  ];
+
   return (
     <footer className="bg-foreground text-background">
       {/* Trust Badges */}
@@ -128,15 +138,14 @@ export const Footer = () => {
             <div className="flex flex-col items-center gap-4">
               {/* Payment Icons */}
               <div className="flex flex-wrap justify-center gap-2">
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0169695890db3db16bfe.svg" alt="American Express" className="h-8" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/ae9ceec48b1dc489596c.svg" alt="Apple Pay" className="h-8" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/f11b90c2972f3811f2d5.svg" alt="Google Pay" className="h-8" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/0e58891c7bb9c2c2ad2f.svg" alt="Klarna" className="h-8" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/37fc607cb2a22ff4a799.svg" alt="Maestro" className="h-8" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/5e2d37aa68a62c3d1f15.svg" alt="Mastercard" className="h-8" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/925e1310ee335ea61faa.svg" alt="PayPal" className="h-8" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/f24f2f4ebe77b7e00f7d.svg" alt="Shop Pay" className="h-8" />
-                <img src="https://cdn.shopify.com/shopifycloud/checkout-web/assets/4fae6e4c47f58deb4c38.svg" alt="Visa" className="h-8" />
+                {paymentMethods.map((method) => (
+                  <div 
+                    key={method.name}
+                    className={`h-7 w-11 ${method.bg} rounded flex items-center justify-center ${method.text}`}
+                  >
+                    {method.name}
+                  </div>
+                ))}
               </div>
               <p className="text-xs text-center text-background/40 uppercase tracking-wider font-stencil">
                 © {new Date().getFullYear()} Urban Artery. Alle Rechte vorbehalten.
