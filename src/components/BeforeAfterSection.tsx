@@ -3,12 +3,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { BeforeAfterSlider } from "./BeforeAfterSlider";
 
-// Placeholder images - replace with actual before/after images
-const FOTO_KUNST_BEFORE = "https://images.unsplash.com/photo-1602030028438-4cf153cbae9e?w=800&q=80";
-const FOTO_KUNST_AFTER = "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800&q=80";
-
-const QUER_HOCH_BEFORE = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80";
-const QUER_HOCH_AFTER = "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80";
+import fotoKunstBefore from "@/assets/foto-kunst-before.png";
+import fotoKunstAfter from "@/assets/foto-kunst-after.png";
+import querHochBefore from "@/assets/quer-hoch-before.png";
+import querHochAfter from "@/assets/quer-hoch-after.png";
 
 export const BeforeAfterSection = () => {
   return (
@@ -21,8 +19,8 @@ export const BeforeAfterSection = () => {
               Aus Foto wird Kunst
             </h2>
             <BeforeAfterSlider
-              beforeImage={FOTO_KUNST_BEFORE}
-              afterImage={FOTO_KUNST_AFTER}
+              beforeImage={fotoKunstBefore}
+              afterImage={fotoKunstAfter}
               beforeAlt="Original photo"
               afterAlt="Street art transformation"
             />
@@ -49,8 +47,8 @@ export const BeforeAfterSection = () => {
               Aus quer wird hoch
             </h2>
             <BeforeAfterSlider
-              beforeImage={QUER_HOCH_BEFORE}
-              afterImage={QUER_HOCH_AFTER}
+              beforeImage={querHochBefore}
+              afterImage={querHochAfter}
               beforeAlt="Original landscape photo"
               afterAlt="Extended portrait format"
             />
