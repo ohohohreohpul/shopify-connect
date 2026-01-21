@@ -8,9 +8,10 @@ import { VideoSection } from "@/components/VideoSection";
 import { StorySection } from "@/components/StorySection";
 import { FeatureCardsSection } from "@/components/FeatureCardsSection";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
 import { Button } from "@/components/ui/button";
-import { Loader2, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const Index = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -41,15 +42,11 @@ const Index = () => {
       <Hero />
       
       <main>
-        {loading ? (
-          <div className="flex items-center justify-center py-32">
-            <Loader2 className="h-10 w-10 animate-spin text-primary" />
-          </div>
-        ) : error ? (
+        {error ? (
           <div className="text-center py-32 text-destructive">
             <p className="text-lg font-bold uppercase">{error}</p>
           </div>
-        ) : products.length === 0 ? (
+        ) : !loading && products.length === 0 ? (
           <div className="text-center py-32">
             <p className="text-xl font-bold uppercase text-foreground">Keine Produkte gefunden</p>
             <p className="text-muted-foreground mt-2">
@@ -62,7 +59,8 @@ const Index = () => {
             <ProductSection 
               title="Beliebte Werke" 
               products={featuredProducts} 
-              showCarousel 
+              showCarousel
+              isLoading={loading}
             />
 
             {/* Urban Artery Video */}
@@ -76,6 +74,7 @@ const Index = () => {
               title="Top Seller" 
               products={topSeller}
               accentColor="pink"
+              isLoading={loading}
             />
 
             {/* New Arrivals */}
@@ -83,6 +82,7 @@ const Index = () => {
               title="Neue Motive" 
               products={newArrivals}
               showCarousel
+              isLoading={loading}
             />
 
             {/* Story & Auftragsarbeiten Section */}
@@ -120,6 +120,7 @@ const Index = () => {
       </main>
 
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

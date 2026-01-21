@@ -1,5 +1,6 @@
 import { ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "./ProductCard";
+import { ProductCardSkeleton } from "./ProductCardSkeleton";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
@@ -10,15 +11,18 @@ interface ProductSectionProps {
   products: ShopifyProduct[];
   showCarousel?: boolean;
   accentColor?: 'pink' | 'default';
+  isLoading?: boolean;
 }
 
 export const ProductSection = ({ 
   title, 
   products, 
   showCarousel = false,
-  accentColor = 'default' 
+  accentColor = 'default',
+  isLoading = false
 }: ProductSectionProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const skeletonCount = showCarousel ? 6 : 8;
 
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
@@ -29,7 +33,7 @@ export const ProductSection = ({
     });
   };
 
-  if (products.length === 0) return null;
+  if (!isLoading && products.length === 0) return null;
 
   return (
     <section className="py-12 md:py-20">
@@ -86,17 +90,27 @@ export const ProductSection = ({
             ref={scrollRef}
             className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4"
           >
-            {products.map((product) => (
-              <div key={product.node.id} className="flex-shrink-0 w-[260px] md:w-[300px]">
-                <ProductCard product={product} />
-              </div>
-            ))}
+            {isLoading
+              ? Array.from({ length: skeletonCount }).map((_, i) => (
+                  <div key={i} className="flex-shrink-0 w-[260px] md:w-[300px]">
+                    <ProductCardSkeleton />
+                  </div>
+                ))
+              : products.map((product) => (
+                  <div key={product.node.id} className="flex-shrink-0 w-[260px] md:w-[300px]">
+                    <ProductCard product={product} />
+                  </div>
+                ))}
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-            {products.map((product) => (
-              <ProductCard key={product.node.id} product={product} />
-            ))}
+            {isLoading
+              ? Array.from({ length: skeletonCount }).map((_, i) => (
+                  <ProductCardSkeleton key={i} />
+                ))
+              : products.map((product) => (
+                  <ProductCard key={product.node.id} product={product} />
+                ))}
           </div>
         )}
       </div>
