@@ -43,8 +43,8 @@ export const Hero = () => {
               size="lg" 
               className="bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold text-sm tracking-wider h-14 px-8 font-stencil"
             >
-              <Link to="/so-gehts">
-                So geht's
+              <Link to="/inspiration">
+                Inspiration
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -54,7 +54,7 @@ export const Hero = () => {
               size="lg"
               className="border-2 border-background text-background hover:bg-background hover:text-foreground uppercase font-bold text-sm tracking-wider h-14 px-8 font-stencil bg-transparent"
             >
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <a href="https://urban-artery.com/products/masterprodukt-individuelle-streetart" target="_blank" rel="noopener noreferrer">
                 Konfigurator
               </a>
             </Button>
