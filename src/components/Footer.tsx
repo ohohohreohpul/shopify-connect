@@ -1,80 +1,60 @@
 import { Link } from "react-router-dom";
-import { Shield, Clock, Truck, Instagram, Facebook } from "lucide-react";
+import { Shield, BadgeCheck, Truck, Instagram, Facebook } from "lucide-react";
 import logoDark from "@/assets/logo-dark.png";
 
 export const Footer = () => {
   return (
-    <footer className="bg-foreground text-background">
-      {/* Trust Badges */}
-      <div className="border-b border-background/10 py-12">
+    <footer>
+      {/* Trust Badges - White Background */}
+      <div className="bg-background py-16 border-b border-foreground/10">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 bg-primary flex items-center justify-center">
-                <Shield className="h-7 w-7 text-primary-foreground" />
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="flex flex-col items-center text-center gap-4">
+              <Shield className="h-12 w-12 text-foreground stroke-[1.5]" />
               <div>
-                <h3 className="uppercase text-sm tracking-wider">Sichere Zahlung</h3>
-                <p className="text-sm text-background/60">Verschlüsselt & geschützt</p>
+                <h3 className="uppercase text-sm tracking-wider font-stencil text-foreground">Sichere Bezahlmethoden</h3>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 bg-primary flex items-center justify-center">
-                <Clock className="h-7 w-7 text-primary-foreground" />
-              </div>
+            <div className="flex flex-col items-center text-center gap-4">
+              <BadgeCheck className="h-12 w-12 text-foreground stroke-[1.5]" />
               <div>
-                <h3 className="uppercase text-sm tracking-wider">Handgefertigt</h3>
-                <p className="text-sm text-background/60">10-14 Tage Anfertigung</p>
+                <h3 className="uppercase text-sm tracking-wider font-stencil text-foreground">Unsere Zufriedenheitsgarantie</h3>
+                <p className="text-sm text-foreground/60 mt-1">Passt nicht? Schick's zurück.<br />30 Tage lang.</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 bg-primary flex items-center justify-center">
-                <Truck className="h-7 w-7 text-primary-foreground" />
-              </div>
+            <div className="flex flex-col items-center text-center gap-4">
+              <Truck className="h-12 w-12 text-foreground stroke-[1.5]" />
               <div>
-                <h3 className="uppercase text-sm tracking-wider">Weltweiter Versand</h3>
-                <p className="text-sm text-background/60">Sicher verpackt</p>
+                <h3 className="uppercase text-sm tracking-wider font-stencil text-foreground">Weltweite Lieferung</h3>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main footer */}
-      <div className="py-16">
+      {/* Main footer with background image */}
+      <div 
+        className="py-16 bg-foreground text-background relative"
+        style={{
+          backgroundImage: 'url(/images/footer-bg.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'bottom center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-            {/* Brand */}
-            <div className="md:col-span-1">
-              <img 
-                src={logoDark} 
-                alt="Urban Artery" 
-                className="h-16 w-auto brightness-0 invert mb-6"
-              />
-              <p className="text-sm text-background/60 mb-6">
-                Echte Street-Art für Dein Zuhause. Handgefertigt von unseren Künstlern.
-              </p>
-              <div className="flex gap-4">
-                <a href="#" className="h-10 w-10 bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
-                  <Instagram className="h-5 w-5" />
-                </a>
-                <a href="#" className="h-10 w-10 bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
-                  <Facebook className="h-5 w-5" />
-                </a>
-              </div>
-            </div>
-
-            {/* Shop links */}
+            {/* Hilfe links */}
             <div>
-              <h3 className="uppercase text-sm tracking-wider mb-6">Shop</h3>
+              <h3 className="uppercase text-sm tracking-wider mb-6 font-stencil">Hilfe</h3>
               <ul className="space-y-3">
                 {[
                   { name: 'So funktioniert\'s', path: '/so-gehts' },
-                  { name: 'Auftragsarbeiten', path: '/auftragsarbeiten' },
+                  { name: 'FAQs', path: '/faq' },
                   { name: 'Verpackung & Versand', path: '/versand' },
                 ].map((item) => (
                   <li key={item.name}>
-                    <Link to={item.path} className="text-sm text-background/60 hover:text-primary transition-colors">
+                    <Link to={item.path} className="text-sm text-background/70 hover:text-primary transition-colors">
                       {item.name}
                     </Link>
                   </li>
@@ -82,17 +62,17 @@ export const Footer = () => {
               </ul>
             </div>
 
-            {/* Info links */}
+            {/* Urban Artery links */}
             <div>
-              <h3 className="uppercase text-sm tracking-wider mb-6">Hilfe</h3>
+              <h3 className="uppercase text-sm tracking-wider mb-6 font-stencil">Urban Artery</h3>
               <ul className="space-y-3">
                 {[
-                  { name: 'Über uns', path: '/ueber-uns' },
-                  { name: 'FAQ', path: '/faq' },
-                  { name: 'Kontakt', path: '/kontakt' },
+                  { name: 'Über Urban Artery', path: '/ueber-uns' },
+                  { name: 'Auftragsarbeiten', path: '/auftragsarbeiten' },
+                  { name: 'Nimm Kontakt auf', path: '/kontakt' },
                 ].map((item) => (
                   <li key={item.name}>
-                    <Link to={item.path} className="text-sm text-background/60 hover:text-primary transition-colors">
+                    <Link to={item.path} className="text-sm text-background/70 hover:text-primary transition-colors">
                       {item.name}
                     </Link>
                   </li>
@@ -100,9 +80,9 @@ export const Footer = () => {
               </ul>
             </div>
 
-            {/* Legal links */}
+            {/* Rechtliches links */}
             <div>
-              <h3 className="uppercase text-sm tracking-wider mb-6">Rechtliches</h3>
+              <h3 className="uppercase text-sm tracking-wider mb-6 font-stencil">Rechtliches</h3>
               <ul className="space-y-3">
                 {[
                   { name: 'Impressum', path: '/impressum' },
@@ -110,23 +90,55 @@ export const Footer = () => {
                   { name: 'AGB & Widerrufsrecht', path: '/agb' },
                 ].map((item) => (
                   <li key={item.name}>
-                    <Link to={item.path} className="text-sm text-background/60 hover:text-primary transition-colors">
+                    <Link to={item.path} className="text-sm text-background/70 hover:text-primary transition-colors">
                       {item.name}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
+
+            {/* Social & Brand */}
+            <div className="flex flex-col items-start md:items-end">
+              <img 
+                src={logoDark} 
+                alt="Urban Artery" 
+                className="h-12 w-auto brightness-0 invert mb-6"
+              />
+              <div className="flex gap-4">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="h-10 w-10 bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="h-10 w-10 bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
+                  <Facebook className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="border-t border-background/10 py-6">
+      {/* Payment methods & Copyright */}
+      <div className="bg-foreground border-t border-background/10 py-6">
         <div className="container mx-auto px-4">
-          <p className="text-xs text-center text-background/40 uppercase tracking-wider font-stencil">
-            © {new Date().getFullYear()} Urban Artery. Alle Rechte vorbehalten.
-          </p>
+          <div className="flex flex-col items-center gap-4">
+            {/* Payment Icons */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {['amex', 'apple-pay', 'mastercard', 'visa', 'paypal', 'klarna', 'google-pay'].map((payment) => (
+                <div 
+                  key={payment}
+                  className="h-8 w-12 bg-background rounded flex items-center justify-center text-[10px] uppercase font-medium text-foreground"
+                >
+                  {payment === 'apple-pay' ? 'Pay' : 
+                   payment === 'google-pay' ? 'GPay' : 
+                   payment.charAt(0).toUpperCase() + payment.slice(1, 4)}
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-center text-background/40 uppercase tracking-wider font-stencil">
+              © {new Date().getFullYear()} Urban Artery. Alle Rechte vorbehalten.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
