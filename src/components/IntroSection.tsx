@@ -3,20 +3,19 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 
 const lines = [
-  "Echte Street-Art für Dein zu Hause.",
-  "Gestaltet von Dir.",
+  "Echte Street-Art für Dein zu Hause. Gestaltet von Dir.",
   "Handgefertigt von unseren Künstlern."
 ];
 
 export const IntroSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   const containerVariants = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.3,
       },
     },
   };
@@ -24,25 +23,27 @@ export const IntroSection = () => {
   const lineVariants = {
     hidden: { 
       opacity: 0, 
-      y: 40,
-      filter: "blur(10px)"
+      y: 60,
+      scale: 0.9,
+      filter: "blur(12px)"
     },
     visible: { 
       opacity: 1, 
       y: 0,
+      scale: 1,
       filter: "blur(0px)",
       transition: {
-        duration: 0.8,
-        ease: [0.25, 0.4, 0.25, 1] as const,
+        duration: 1,
+        ease: [0.22, 1, 0.36, 1] as const,
       },
     },
   };
 
   return (
-    <section className="py-16 md:py-24 bg-background" ref={ref}>
+    <section className="py-20 md:py-32 bg-background overflow-hidden" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.div 
-          className="max-w-4xl mx-auto text-center"
+          className="max-w-5xl mx-auto text-center space-y-4"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -61,3 +62,4 @@ export const IntroSection = () => {
     </section>
   );
 };
+
