@@ -26,14 +26,14 @@ export const Hero = () => {
           {/* CTAs */}
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold text-sm tracking-wider h-14 px-8 font-stencil">
-              <Link to="/">
-                Jetzt entdecken
+              <Link to="/inspiration">
+                Inspiration
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="border-2 border-background text-background hover:bg-background hover:text-foreground uppercase font-bold text-sm tracking-wider h-14 px-8 font-stencil bg-transparent">
-              <Link to="/">
-                Dein Foto-Kunst
+              <Link to="/konfigurator">
+                Konfigurator
               </Link>
             </Button>
           </div>
