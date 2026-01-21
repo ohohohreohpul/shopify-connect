@@ -5,7 +5,6 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// Token endpoint from Zakeke documentation
 const TOKEN_ENDPOINT = 'https://api.zakeke.com/token';
 
 serve(async (req) => {
@@ -26,14 +25,46 @@ serve(async (req) => {
       );
     }
 
+    // Parse request body to get visitorcode if provided
+    let visitorCode: string | null = null;
+    let customerCode: string | null = null;
+    
+    try {
+      const body = await req.json();
+      visitorCode = body.visitorCode || null;
+      customerCode = body.customerCode || null;
+    } catch {
+      // No body or not JSON - generate a visitor code
+    }
+
+    // Generate a unique visitor code if not provided (required for C2S tokens)
+    if (!visitorCode && !customerCode) {
+      visitorCode = `visitor_${crypto.randomUUID()}`;
+    }
+
     console.log('Zakeke credentials loaded');
     console.log('Client ID:', clientId);
-    console.log('Using endpoint:', TOKEN_ENDPOINT);
+    console.log('Visitor Code:', visitorCode);
+    console.log('Customer Code:', customerCode);
 
-    // Basic Auth with client_id:secret_key as per OAuth2 spec
+    // Basic Auth with client_id:secret_key as per Zakeke docs
     const basicAuth = btoa(`${clientId}:${secretKey}`);
 
-    // Request token using client_credentials grant
+    // Build request body with required parameters
+    const bodyParams = new URLSearchParams({
+      grant_type: 'client_credentials',
+      access_type: 'C2S', // Client to Server for UI/iframe integration
+    });
+
+    // Add visitor or customer code (required for C2S tokens)
+    if (customerCode) {
+      bodyParams.append('customercode', customerCode);
+    } else if (visitorCode) {
+      bodyParams.append('visitorcode', visitorCode);
+    }
+
+    console.log('Request body:', bodyParams.toString());
+
     const response = await fetch(TOKEN_ENDPOINT, {
       method: 'POST',
       headers: {
@@ -41,10 +72,7 @@ serve(async (req) => {
         'Authorization': `Basic ${basicAuth}`,
         'Accept': 'application/json',
       },
-      body: new URLSearchParams({
-        grant_type: 'client_credentials',
-        access_type: 'C2S', // Client to Server for frontend integration
-      }),
+      body: bodyParams,
     });
 
     const responseText = await response.text();
@@ -72,6 +100,7 @@ serve(async (req) => {
         access_token: data.access_token || data['access-token'],
         expires_in: data.expires_in,
         token_type: data.token_type,
+        visitor_code: visitorCode,
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
