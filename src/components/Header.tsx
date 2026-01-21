@@ -48,13 +48,18 @@ export const Header = () => {
       <nav className="hidden md:block border-t border-header-foreground/20">
         <div className="container mx-auto px-4">
           <ul className="flex justify-center gap-8 py-3">
-            {['Alle Werke', 'Foto-Kunst', 'Über uns', 'Kontakt'].map((item) => (
-              <li key={item}>
+            {[
+              { name: 'So geht\'s', path: '/so-gehts' },
+              { name: 'Über uns', path: '/ueber-uns' },
+              { name: 'Auftragsarbeiten', path: '/auftragsarbeiten' },
+              { name: 'Kontakt', path: '/kontakt' },
+            ].map((item) => (
+              <li key={item.name}>
                 <Link
-                  to="/"
+                  to={item.path}
                   className="text-xs font-bold uppercase tracking-wider text-header-foreground hover:text-primary transition-colors font-stencil"
                 >
-                  {item}
+                  {item.name}
                 </Link>
               </li>
             ))}
@@ -69,10 +74,11 @@ export const Header = () => {
             <ul className="space-y-4">
               {[
                 { name: 'Startseite', path: '/' },
-                { name: 'Alle Werke', path: '/' },
-                { name: 'Foto-Kunst', path: '/' },
-                { name: 'Über uns', path: '/' },
-                { name: 'Kontakt', path: '/' },
+                { name: 'So geht\'s', path: '/so-gehts' },
+                { name: 'Über uns', path: '/ueber-uns' },
+                { name: 'Auftragsarbeiten', path: '/auftragsarbeiten' },
+                { name: 'Kontakt', path: '/kontakt' },
+                { name: 'FAQ', path: '/faq' },
               ].map((item) => (
                 <li key={item.name}>
                   <Link

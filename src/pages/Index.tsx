@@ -4,6 +4,8 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { ProductSection } from "@/components/ProductSection";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
+import { VideoSection } from "@/components/VideoSection";
+import { StorySection } from "@/components/StorySection";
 import { Footer } from "@/components/Footer";
 import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
 import { Button } from "@/components/ui/button";
@@ -62,6 +64,9 @@ const Index = () => {
               showCarousel 
             />
 
+            {/* Urban Artery Video */}
+            <VideoSection />
+
             {/* Before/After Comparison Widgets */}
             <BeforeAfterSection />
 
@@ -78,6 +83,9 @@ const Index = () => {
               products={newArrivals}
               showCarousel
             />
+
+            {/* Story & Auftragsarbeiten Section */}
+            <StorySection />
 
             {/* Newsletter / Community Section */}
             <section className="py-20 bg-foreground">
