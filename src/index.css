@@ -126,6 +126,20 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inconsolata', monospace;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
+  }
+
+  /* Paragraphs and body text */
+  p {
+    @apply text-base leading-relaxed;
+    font-weight: 400;
+  }
+
+  /* Small text */
+  small, .text-sm {
+    letter-spacing: 0.02em;
   }
 
   /* Allerta Stencil for all headings */
