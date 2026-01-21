@@ -98,7 +98,10 @@ export const Footer = () => {
                   { name: 'Verpackung & Versand', path: '/versand' },
                 ].map((item) => (
                   <li key={item.name}>
-                    <Link to={item.path} className="text-sm text-background/70 hover:text-primary transition-colors">
+                    <Link 
+                      to={item.path} 
+                      className="text-sm text-background/70 hover:text-primary-foreground hover:bg-primary px-1 -mx-1 transition-all duration-200"
+                    >
                       {item.name}
                     </Link>
                   </li>
@@ -116,7 +119,10 @@ export const Footer = () => {
                   { name: 'Nimm Kontakt auf', path: '/kontakt' },
                 ].map((item) => (
                   <li key={item.name}>
-                    <Link to={item.path} className="text-sm text-background/70 hover:text-primary transition-colors">
+                    <Link 
+                      to={item.path} 
+                      className="text-sm text-background/70 hover:text-primary-foreground hover:bg-primary px-1 -mx-1 transition-all duration-200"
+                    >
                       {item.name}
                     </Link>
                   </li>
@@ -134,7 +140,10 @@ export const Footer = () => {
                   { name: 'AGB & Widerrufsrecht', path: '/agb' },
                 ].map((item) => (
                   <li key={item.name}>
-                    <Link to={item.path} className="text-sm text-background/70 hover:text-primary transition-colors">
+                    <Link 
+                      to={item.path} 
+                      className="text-sm text-background/70 hover:text-primary-foreground hover:bg-primary px-1 -mx-1 transition-all duration-200"
+                    >
                       {item.name}
                     </Link>
                   </li>
