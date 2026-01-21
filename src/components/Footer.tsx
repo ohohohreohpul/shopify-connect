@@ -46,7 +46,7 @@ export const Footer = () => {
               </div>
               <div>
                 <h3 className="uppercase text-sm tracking-wider font-stencil">Zufriedenheitsgarantie</h3>
-                <p className="text-sm text-background/60 mt-1">Passt nicht? Schick's zurück. 30 Tage Rückgaberecht auf alle Bestellungen.</p>
+                <p className="text-sm text-background/60 mt-1">Dein persönliches Unikat. Wir fertigen mit höchster Sorgfalt speziell für dich. Sollte es dennoch einen Qualitätsmangel geben, sind wir natürlich für dich da.</p>
               </div>
             </div>
 
