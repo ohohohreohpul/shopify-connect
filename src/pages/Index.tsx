@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { ProductSection } from "@/components/ProductSection";
+import { BeforeAfterSection } from "@/components/BeforeAfterSection";
 import { Footer } from "@/components/Footer";
 import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
 import { Button } from "@/components/ui/button";
@@ -61,62 +62,8 @@ const Index = () => {
               showCarousel 
             />
 
-            {/* Promo Banner - Photo Art */}
-            <section className="py-12 md:py-20">
-              <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {/* Foto-Kunst CTA */}
-                  <div className="bg-primary p-8 md:p-12 flex flex-col justify-between min-h-[400px]">
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary-foreground/70 mb-4 font-stencil">
-                        Personalisiert
-                      </p>
-                      <h3 className="text-3xl md:text-4xl text-primary-foreground mb-4">
-                        Aus Foto<br />wird Kunst
-                      </h3>
-                      <p className="text-primary-foreground/80 max-w-sm">
-                        Lade dein Lieblingsfoto hoch und unsere Künstler verwandeln es in ein einzigartiges Street-Art Werk.
-                      </p>
-                    </div>
-                    <Button 
-                      asChild
-                      size="lg"
-                      className="bg-background text-foreground hover:bg-background/90 uppercase font-bold text-sm tracking-wider h-14 px-8 self-start mt-8 font-stencil"
-                    >
-                      <Link to="/">
-                        Jetzt gestalten
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-
-                  {/* Format Extension CTA */}
-                  <div className="bg-foreground p-8 md:p-12 flex flex-col justify-between min-h-[400px]">
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.3em] text-background/70 mb-4 font-stencil">
-                        KI-erweitert
-                      </p>
-                      <h3 className="text-3xl md:text-4xl text-background mb-4">
-                        Aus quer<br />wird hoch
-                      </h3>
-                      <p className="text-background/80 max-w-sm">
-                        Wir erweitern dein Foto mit KI für das perfekte Format – ohne dabei Details zu verlieren.
-                      </p>
-                    </div>
-                    <Button 
-                      asChild
-                      size="lg"
-                      className="bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold text-sm tracking-wider h-14 px-8 self-start mt-8 font-stencil"
-                    >
-                      <Link to="/">
-                        Mehr erfahren
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </section>
+            {/* Before/After Comparison Widgets */}
+            <BeforeAfterSection />
 
             {/* Top Seller Grid */}
             <ProductSection 
