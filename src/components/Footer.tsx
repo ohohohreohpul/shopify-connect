@@ -14,7 +14,7 @@ export const Footer = () => {
                 <Shield className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
-                <h3 className="font-bold uppercase text-sm tracking-wider">Sichere Zahlung</h3>
+                <h3 className="uppercase text-sm tracking-wider">Sichere Zahlung</h3>
                 <p className="text-sm text-background/60">Verschlüsselt & geschützt</p>
               </div>
             </div>
@@ -23,7 +23,7 @@ export const Footer = () => {
                 <Clock className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
-                <h3 className="font-bold uppercase text-sm tracking-wider">Handgefertigt</h3>
+                <h3 className="uppercase text-sm tracking-wider">Handgefertigt</h3>
                 <p className="text-sm text-background/60">10-14 Tage Anfertigung</p>
               </div>
             </div>
@@ -32,7 +32,7 @@ export const Footer = () => {
                 <Truck className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
-                <h3 className="font-bold uppercase text-sm tracking-wider">Weltweiter Versand</h3>
+                <h3 className="uppercase text-sm tracking-wider">Weltweiter Versand</h3>
                 <p className="text-sm text-background/60">Sicher verpackt</p>
               </div>
             </div>
@@ -66,7 +66,7 @@ export const Footer = () => {
 
             {/* Shop links */}
             <div>
-              <h3 className="font-bold uppercase text-sm tracking-wider mb-6">Shop</h3>
+              <h3 className="uppercase text-sm tracking-wider mb-6">Shop</h3>
               <ul className="space-y-3">
                 {['Alle Werke', 'Neue Motive', 'Foto-Kunst', 'Geschenkgutschein'].map((item) => (
                   <li key={item}>
@@ -80,7 +80,7 @@ export const Footer = () => {
 
             {/* Info links */}
             <div>
-              <h3 className="font-bold uppercase text-sm tracking-wider mb-6">Info</h3>
+              <h3 className="uppercase text-sm tracking-wider mb-6">Info</h3>
               <ul className="space-y-3">
                 {['Über uns', 'FAQ & Hilfe', 'Kontakt', 'Widerrufsbelehrung'].map((item) => (
                   <li key={item}>
@@ -94,7 +94,7 @@ export const Footer = () => {
 
             {/* Legal links */}
             <div>
-              <h3 className="font-bold uppercase text-sm tracking-wider mb-6">Rechtliches</h3>
+              <h3 className="uppercase text-sm tracking-wider mb-6">Rechtliches</h3>
               <ul className="space-y-3">
                 {['Impressum', 'Datenschutz', 'AGB', 'Versand & Lieferung'].map((item) => (
                   <li key={item}>
@@ -112,7 +112,7 @@ export const Footer = () => {
       {/* Copyright */}
       <div className="border-t border-background/10 py-6">
         <div className="container mx-auto px-4">
-          <p className="text-xs text-center text-background/40 uppercase tracking-wider">
+          <p className="text-xs text-center text-background/40 uppercase tracking-wider font-stencil">
             © {new Date().getFullYear()} Urban Artery. Alle Rechte vorbehalten.
           </p>
         </div>
