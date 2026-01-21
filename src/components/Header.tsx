@@ -11,14 +11,14 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-header">
-      {/* Top bar */}
-      <div className="bg-primary text-primary-foreground py-2">
+      {/* Top bar - hidden for now */}
+      {/* <div className="bg-primary text-primary-foreground py-2">
         <div className="container mx-auto px-4">
           <p className="text-xs text-center font-bold uppercase tracking-wider font-stencil">
             Kostenloser Versand ab 150€ · Handgefertigt in Deutschland
           </p>
         </div>
-      </div>
+      </div> */}
 
       {/* Main header */}
       <div className="container mx-auto px-4">
