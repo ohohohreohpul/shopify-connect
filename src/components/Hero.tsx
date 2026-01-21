@@ -2,28 +2,47 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
+// Video will be imported here once uploaded
+// import heroVideo from "@/assets/hero-video.mp4";
+
 export const Hero = () => {
   return (
-    <section className="relative bg-[hsl(50,100%,50%)] overflow-hidden">
-      {/* Bold diagonal stripe */}
-      <div className="absolute inset-0 bg-primary opacity-10 transform -skew-y-6 origin-top-left scale-150" />
+    <section className="relative bg-foreground overflow-hidden">
+      {/* Video Background - placeholder until video is uploaded */}
+      <div className="absolute inset-0 z-0">
+        {/* Replace this div with video once uploaded */}
+        <div className="w-full h-full bg-foreground" />
+        {/* 
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+        */}
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-foreground/60" />
+      </div>
       
-      <div className="container mx-auto px-4 py-16 md:py-24 lg:py-32 relative z-10">
+      <div className="container mx-auto px-4 py-24 md:py-32 lg:py-40 relative z-10">
         <div className="max-w-3xl">
           {/* Tagline */}
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-foreground/60 mb-4">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-background/60 mb-4 font-stencil">
             Street Art für Dein Zuhause
           </p>
           
           {/* Main headline */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase leading-[0.9] text-foreground mb-6">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl leading-[0.95] text-background mb-6">
             Echte<br />
             <span className="text-primary">Kunst.</span><br />
             Deine Wand.
           </h1>
           
           {/* Subline */}
-          <p className="text-lg md:text-xl text-foreground/80 mb-8 max-w-lg">
+          <p className="text-lg md:text-xl text-background/80 mb-8 max-w-lg">
             Gestalte dein eigenes Kunstwerk oder wähle aus über 60 handgefertigten Designs unserer Künstler.
           </p>
           
@@ -32,7 +51,7 @@ export const Hero = () => {
             <Button 
               asChild
               size="lg" 
-              className="bg-foreground text-background hover:bg-foreground/90 uppercase font-bold text-sm tracking-wider h-14 px-8"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold text-sm tracking-wider h-14 px-8 font-stencil"
             >
               <Link to="/">
                 Jetzt entdecken
@@ -43,7 +62,7 @@ export const Hero = () => {
               asChild
               variant="outline" 
               size="lg"
-              className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background uppercase font-bold text-sm tracking-wider h-14 px-8"
+              className="border-2 border-background text-background hover:bg-background hover:text-foreground uppercase font-bold text-sm tracking-wider h-14 px-8 font-stencil bg-transparent"
             >
               <Link to="/">
                 Dein Foto-Kunst
@@ -52,9 +71,6 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-      
-      {/* Bottom accent bar */}
-      <div className="h-2 bg-primary" />
     </section>
   );
 };

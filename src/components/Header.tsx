@@ -12,7 +12,7 @@ export const Header = () => {
       {/* Top bar */}
       <div className="bg-primary text-primary-foreground py-2">
         <div className="container mx-auto px-4">
-          <p className="text-xs text-center font-bold uppercase tracking-wider">
+          <p className="text-xs text-center font-bold uppercase tracking-wider font-stencil">
             Kostenloser Versand ab 150€ · Handgefertigt in Deutschland
           </p>
         </div>
@@ -52,7 +52,7 @@ export const Header = () => {
               <li key={item}>
                 <Link
                   to="/"
-                  className="text-xs font-bold uppercase tracking-wider text-header-foreground hover:text-primary transition-colors"
+                  className="text-xs font-bold uppercase tracking-wider text-header-foreground hover:text-primary transition-colors font-stencil"
                 >
                   {item}
                 </Link>
@@ -77,7 +77,7 @@ export const Header = () => {
                 <li key={item.name}>
                   <Link
                     to={item.path}
-                    className="block text-lg font-bold uppercase tracking-wider text-header-foreground hover:text-primary transition-colors"
+                    className="block text-lg font-bold uppercase tracking-wider text-header-foreground hover:text-primary transition-colors font-stencil"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}

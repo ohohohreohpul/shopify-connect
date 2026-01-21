@@ -74,7 +74,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         {/* Price tag */}
         {price && (
           <div className="absolute top-4 left-4 bg-background px-3 py-1">
-            <span className="text-sm font-bold text-foreground">
+            <span className="text-sm font-bold text-foreground font-stencil">
               ab {parseFloat(price.amount).toFixed(0)}€
             </span>
           </div>
@@ -83,7 +83,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       
       {/* Product info */}
       <div className="mt-4">
-        <h3 className="text-sm font-bold uppercase tracking-wide text-foreground line-clamp-1 group-hover:text-primary transition-colors">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-foreground line-clamp-1 group-hover:text-primary transition-colors font-stencil">
           {node.title}
         </h3>
       </div>

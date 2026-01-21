@@ -37,7 +37,7 @@ export const ProductSection = ({
         {/* Section header */}
         <div className="flex items-end justify-between mb-8 md:mb-12">
           <div>
-            <h2 className={`text-2xl md:text-4xl font-black uppercase tracking-tight ${
+            <h2 className={`text-2xl md:text-4xl tracking-tight ${
               accentColor === 'pink' ? 'text-primary' : 'text-foreground'
             }`}>
               {title}
@@ -71,7 +71,7 @@ export const ProductSection = ({
             <Button 
               asChild
               variant="ghost" 
-              className="hidden md:flex uppercase font-bold text-xs tracking-wider hover:text-primary"
+              className="hidden md:flex uppercase font-bold text-xs tracking-wider hover:text-primary font-stencil"
             >
               <Link to="/">
                 Alle ansehen

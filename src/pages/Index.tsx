@@ -68,10 +68,10 @@ const Index = () => {
                   {/* Foto-Kunst CTA */}
                   <div className="bg-primary p-8 md:p-12 flex flex-col justify-between min-h-[400px]">
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary-foreground/70 mb-4">
+                      <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary-foreground/70 mb-4 font-stencil">
                         Personalisiert
                       </p>
-                      <h3 className="text-3xl md:text-4xl font-black uppercase text-primary-foreground mb-4">
+                      <h3 className="text-3xl md:text-4xl text-primary-foreground mb-4">
                         Aus Foto<br />wird Kunst
                       </h3>
                       <p className="text-primary-foreground/80 max-w-sm">
@@ -81,7 +81,7 @@ const Index = () => {
                     <Button 
                       asChild
                       size="lg"
-                      className="bg-background text-foreground hover:bg-background/90 uppercase font-bold text-sm tracking-wider h-14 px-8 self-start mt-8"
+                      className="bg-background text-foreground hover:bg-background/90 uppercase font-bold text-sm tracking-wider h-14 px-8 self-start mt-8 font-stencil"
                     >
                       <Link to="/">
                         Jetzt gestalten
@@ -93,10 +93,10 @@ const Index = () => {
                   {/* Format Extension CTA */}
                   <div className="bg-foreground p-8 md:p-12 flex flex-col justify-between min-h-[400px]">
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.3em] text-background/70 mb-4">
+                      <p className="text-xs font-bold uppercase tracking-[0.3em] text-background/70 mb-4 font-stencil">
                         KI-erweitert
                       </p>
-                      <h3 className="text-3xl md:text-4xl font-black uppercase text-background mb-4">
+                      <h3 className="text-3xl md:text-4xl text-background mb-4">
                         Aus quer<br />wird hoch
                       </h3>
                       <p className="text-background/80 max-w-sm">
@@ -106,7 +106,7 @@ const Index = () => {
                     <Button 
                       asChild
                       size="lg"
-                      className="bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold text-sm tracking-wider h-14 px-8 self-start mt-8"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold text-sm tracking-wider h-14 px-8 self-start mt-8 font-stencil"
                     >
                       <Link to="/">
                         Mehr erfahren
@@ -133,23 +133,23 @@ const Index = () => {
             />
 
             {/* Newsletter / Community Section */}
-            <section className="py-20 bg-[hsl(50,100%,50%)]">
+            <section className="py-20 bg-foreground">
               <div className="container mx-auto px-4 text-center">
-                <h2 className="text-3xl md:text-5xl font-black uppercase text-foreground mb-4">
+                <h2 className="text-3xl md:text-5xl text-background mb-4">
                   Join the Movement
                 </h2>
-                <p className="text-foreground/80 mb-8 max-w-xl mx-auto">
+                <p className="text-background/80 mb-8 max-w-xl mx-auto">
                   Melde dich für unseren Newsletter an und erhalte 10% Rabatt auf deine erste Bestellung.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                   <input 
                     type="email" 
                     placeholder="Deine E-Mail"
-                    className="flex-1 h-14 px-6 bg-background text-foreground placeholder:text-muted-foreground border-2 border-foreground focus:outline-none focus:border-primary"
+                    className="flex-1 h-14 px-6 bg-background text-foreground placeholder:text-muted-foreground border-2 border-background focus:outline-none focus:border-primary"
                   />
                   <Button 
                     size="lg"
-                    className="bg-foreground text-background hover:bg-foreground/90 uppercase font-bold text-sm tracking-wider h-14 px-8"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold text-sm tracking-wider h-14 px-8 font-stencil"
                   >
                     Anmelden
                   </Button>
