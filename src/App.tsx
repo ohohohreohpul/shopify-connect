@@ -10,6 +10,7 @@ import UeberUns from "./pages/UeberUns";
 import Kontakt from "./pages/Kontakt";
 import Auftragsarbeiten from "./pages/Auftragsarbeiten";
 import SoGehts from "./pages/SoGehts";
+import SoStartestDu from "./pages/SoStartestDu";
 import Inspiration from "./pages/Inspiration";
 import FAQ from "./pages/FAQ";
 import Versand from "./pages/Versand";
@@ -31,6 +32,7 @@ const AppContent = () => {
       <Route path="/kontakt" element={<Kontakt />} />
       <Route path="/auftragsarbeiten" element={<Auftragsarbeiten />} />
       <Route path="/so-gehts" element={<SoGehts />} />
+      <Route path="/so-startest-du" element={<SoStartestDu />} />
       <Route path="/inspiration" element={<Inspiration />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/versand" element={<Versand />} />

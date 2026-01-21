@@ -6,6 +6,7 @@ import { ProductSection } from "@/components/ProductSection";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
 import { VideoSection } from "@/components/VideoSection";
 import { StorySection } from "@/components/StorySection";
+import { FeatureCardsSection } from "@/components/FeatureCardsSection";
 import { Footer } from "@/components/Footer";
 import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
 import { Button } from "@/components/ui/button";
@@ -86,6 +87,9 @@ const Index = () => {
 
             {/* Story & Auftragsarbeiten Section */}
             <StorySection />
+
+            {/* Feature Cards Section - Diesel Style */}
+            <FeatureCardsSection />
 
             {/* Newsletter / Community Section */}
             <section className="py-20 bg-foreground">
