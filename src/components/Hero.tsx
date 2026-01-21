@@ -12,6 +12,8 @@ export const Hero = () => {
           <source src={HERO_VIDEO_URL} type="video/quicktime" />
           <source src={HERO_VIDEO_URL} type="video/mp4" />
         </video>
+        {/* Bottom gradient for text readability */}
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-foreground/80 via-foreground/40 to-transparent" />
       </div>
       
       <div className="container mx-auto px-4 pb-12 md:pb-16 mt-auto relative z-10 text-center">
