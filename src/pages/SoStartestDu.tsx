@@ -88,19 +88,16 @@ const SoStartestDu = () => {
             <p className="text-primary-foreground/80 text-lg mb-8 max-w-xl mx-auto">
               Starte jetzt mit dem Konfigurator und gestalte dein persönliches Street-Art Kunstwerk.
             </p>
-            <a 
-              href="https://urban-artery.com/products/masterprodukt-individuelle-streetart"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Button 
+              asChild
+              size="lg" 
+              className="bg-foreground text-background hover:bg-foreground/90 uppercase font-bold tracking-wider h-14 px-10 font-stencil"
             >
-              <Button 
-                size="lg" 
-                className="bg-foreground text-background hover:bg-foreground/90 uppercase font-bold tracking-wider h-14 px-10 font-stencil"
-              >
+              <Link to="/konfigurator">
                 Zum Konfigurator
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </a>
+              </Link>
+            </Button>
           </div>
         </section>
 

@@ -33,7 +33,7 @@ export const BeforeAfterSection = () => {
                 size="lg"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold text-sm tracking-wider h-12 px-6 font-stencil"
               >
-                <Link to="/">
+                <Link to="/konfigurator">
                   Jetzt gestalten
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -61,7 +61,7 @@ export const BeforeAfterSection = () => {
                 size="lg"
                 className="bg-foreground text-background hover:bg-foreground/90 uppercase font-bold text-sm tracking-wider h-12 px-6 font-stencil"
               >
-                <Link to="/">
+                <Link to="/konfigurator">
                   Mehr erfahren
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

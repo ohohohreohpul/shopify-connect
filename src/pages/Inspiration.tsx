@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
@@ -81,14 +82,12 @@ const Inspiration = () => {
             <p className="text-lg text-primary-foreground/80 mb-8 max-w-xl mx-auto">
               Nutze unseren Konfigurator und erstelle dein individuelles Street-Art Unikat.
             </p>
-            <a 
-              href="https://urban-artery.com/products/masterprodukt-individuelle-streetart"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link 
+              to="/konfigurator"
               className="inline-flex items-center justify-center h-14 px-8 bg-foreground text-background hover:bg-foreground/90 uppercase font-bold text-sm tracking-wider font-stencil transition-colors"
             >
               Zum Konfigurator
-            </a>
+            </Link>
           </div>
         </section>
       </main>

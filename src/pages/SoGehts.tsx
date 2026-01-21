@@ -102,10 +102,10 @@ const SoGehts = () => {
                   size="lg"
                   className="bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold text-sm tracking-wider h-14 px-8 font-stencil"
                 >
-                  <a href="#" target="_blank" rel="noopener noreferrer">
+                  <Link to="/konfigurator">
                     Zum Konfigurator
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </div>
