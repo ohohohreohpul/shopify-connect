@@ -8,6 +8,8 @@ import paypalIcon from "@/assets/payment/paypal.svg";
 import klarnaIcon from "@/assets/payment/klarna.svg";
 import googlepayIcon from "@/assets/payment/googlepay.svg";
 import applepayIcon from "@/assets/payment/applepay.svg";
+import dhlIcon from "@/assets/shipping/dhl.svg";
+import upsIcon from "@/assets/shipping/ups.svg";
 
 export const Footer = () => {
   const paymentMethods = [
@@ -26,30 +28,47 @@ export const Footer = () => {
       <div className="border-b border-background/10 py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 bg-primary flex items-center justify-center">
+            {/* Sichere Bezahlmethoden */}
+            <div className="flex items-start gap-4">
+              <div className="h-14 w-14 bg-primary flex items-center justify-center flex-shrink-0">
                 <Shield className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
                 <h3 className="uppercase text-sm tracking-wider font-stencil">Sichere Bezahlmethoden</h3>
+                <p className="text-sm text-background/60 mt-1">SSL-verschlüsselt & geschützt. Zahle sicher mit Kreditkarte, PayPal oder Klarna.</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 bg-primary flex items-center justify-center">
+
+            {/* Zufriedenheitsgarantie */}
+            <div className="flex items-start gap-4">
+              <div className="h-14 w-14 bg-primary flex items-center justify-center flex-shrink-0">
                 <BadgeCheck className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
                 <h3 className="uppercase text-sm tracking-wider font-stencil">Zufriedenheitsgarantie</h3>
-                <p className="text-sm text-background/60">30 Tage Rückgaberecht</p>
+                <p className="text-sm text-background/60 mt-1">Passt nicht? Schick's zurück. 30 Tage Rückgaberecht auf alle Bestellungen.</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="h-14 w-14 bg-primary flex items-center justify-center">
+
+            {/* Weltweite Lieferung */}
+            <div className="flex items-start gap-4">
+              <div className="h-14 w-14 bg-primary flex items-center justify-center flex-shrink-0">
                 <Truck className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
                 <h3 className="uppercase text-sm tracking-wider font-stencil">Weltweite Lieferung</h3>
-                <p className="text-sm text-background/60">Sicher verpackt</p>
+                <p className="text-sm text-background/60 mt-1 mb-2">Sicher verpackt mit unseren Versandpartnern.</p>
+                <div className="flex items-center gap-3">
+                  <div className="h-6 w-10 bg-background rounded flex items-center justify-center p-1">
+                    <img src={dhlIcon} alt="DHL" className="h-full w-full object-contain" />
+                  </div>
+                  <div className="h-6 w-10 bg-background rounded flex items-center justify-center p-1">
+                    <img src={upsIcon} alt="UPS" className="h-full w-full object-contain" />
+                  </div>
+                  <div className="h-6 px-2 bg-[#FFCC00] rounded flex items-center justify-center">
+                    <span className="text-[8px] font-bold text-black">DEUTSCHE POST</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
