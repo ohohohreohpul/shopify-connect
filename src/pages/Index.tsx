@@ -25,7 +25,7 @@ const Index = () => {
       try {
         const [allData, templateData] = await Promise.all([
           fetchProducts(64),
-          fetchCollectionProducts("testkollektion-templates", 8),
+          fetchCollectionProducts("testkollektion-ballerina", 8),
         ]);
         setProducts(allData);
         setTemplateProducts(templateData);
