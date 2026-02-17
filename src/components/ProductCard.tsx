@@ -7,9 +7,10 @@ import { toast } from "sonner";
 
 interface ProductCardProps {
   product: ShopifyProduct;
+  customUrl?: string;
 }
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = ({ product, customUrl }: ProductCardProps) => {
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const { node } = product;
@@ -35,12 +36,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       description: node.title,
     });
   };
-
-  const shopifyUrl = "https://urban-artery.com/products/masterprodukt-individuelle-streetart";
+  const productNumericId = node.id.replace('gid://shopify/Product/', '');
+  const href = customUrl || `https://urban-artery.com/products/masterprodukt-individuelle-streetart`;
 
   return (
     <a 
-      href={shopifyUrl}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       className="group block"
