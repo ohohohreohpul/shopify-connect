@@ -10,20 +10,25 @@ import { StorySection } from "@/components/StorySection";
 import { FeatureCardsSection } from "@/components/FeatureCardsSection";
 import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import { fetchProducts, ShopifyProduct } from "@/lib/shopify";
+import { fetchProducts, fetchCollectionProducts, ShopifyProduct } from "@/lib/shopify";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const Index = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
+  const [templateProducts, setTemplateProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const data = await fetchProducts(64);
-        setProducts(data);
+        const [allData, templateData] = await Promise.all([
+          fetchProducts(64),
+          fetchCollectionProducts("testkollektion-templates", 8),
+        ]);
+        setProducts(allData);
+        setTemplateProducts(templateData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Fehler beim Laden');
       } finally {
@@ -33,7 +38,7 @@ const Index = () => {
     loadProducts();
   }, []);
 
-  const featuredProducts = products.slice(0, 8);
+  const featuredProducts = templateProducts.length > 0 ? templateProducts : products.slice(0, 8);
   const topSeller = products.slice(8, 16);
   const newArrivals = products.slice(16, 24);
 
