@@ -51,7 +51,7 @@ Zakeke paywalled dynamic pricing, so customization costs don't reflect in Shopif
 
 ### What Gets Built
 
-**1. Database: Pricing Rules Table**
+**1. Database: Pricing Rules Table** ✅ DONE
 
 A `pricing_rules` table so you can update pricing without code changes.
 
@@ -61,11 +61,11 @@ A `pricing_rules` table so you can update pricing without code changes.
 | option_key | `S`, `M`, `premium_text`, `gold_effect` |
 | price_eur | `89.00`, `15.00`, `25.00` |
 
-**2. File Storage**
+**2. File Storage** ✅ DONE
 
 A storage bucket for customer design uploads. Images are stored and referenced in the Draft Order notes so you know what to print.
 
-**3. Edge Function: `create-custom-order`**
+**3. Edge Function: `create-custom-order`** ✅ DONE
 
 - Receives full configuration (size, material, orientation, add-ons, uploaded image URL)
 - Fetches pricing rules from database
@@ -76,7 +76,7 @@ A storage bucket for customer design uploads. Images are stored and referenced i
   - Customer's uploaded design reference
 - Returns the Draft Order invoice URL as the checkout link
 
-**4. Updated Konfigurator Page**
+**4. Updated Konfigurator Page** ✅ DONE
 
 - Keep existing size/material/orientation selectors
 - Add image upload area (stored in backend file storage)
@@ -87,15 +87,14 @@ A storage bucket for customer design uploads. Images are stored and referenced i
 
 ### Steps
 
-1. Create the `pricing_rules` database table with base prices and add-on definitions
-2. Set up file storage bucket for customer design uploads
-3. Build the `create-custom-order` edge function (price calculation + Shopify Draft Order creation)
-4. Update the Konfigurator page UI (upload, text, effects, live pricing)
-5. Connect the "Add to Cart" flow to the edge function
+1. ✅ Create the `pricing_rules` database table with base prices and add-on definitions
+2. ✅ Set up file storage bucket for customer design uploads
+3. ✅ Build the `create-custom-order` edge function (price calculation + Shopify Draft Order creation)
+4. ✅ Update the Konfigurator page UI (upload, text, effects, live pricing)
+5. ✅ Connect the "Add to Cart" flow to the edge function
 6. Test the full flow end-to-end
 
 ### What You'll Need to Provide
 
 - **Shopify Admin API token** -- needed for creating Draft Orders (we'll prompt you securely)
 - **Your add-on options and prices** -- what extras to offer and at what cost (we can start with placeholders you adjust later)
-

@@ -1,74 +1,15 @@
-import { useState, useMemo } from 'react';
+import { useState, useCallback } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
-import { ArrowRight, Check } from 'lucide-react';
-
-// Variant mapping based on Shopify product data
-// Format: `${size}-${orientation}-${material}` -> variantId
-const VARIANT_MAP: Record<string, string> = {
-  // S - Hochformat
-  'S-Hochformat-LightBeton': '44498697363723',
-  'S-Hochformat-Aquarellpapier': '44498697396491',
-  'S-Hochformat-Leinwand': '44498697429259',
-  // S - Querformat
-  'S-Querformat-LightBeton': '44498697462027',
-  'S-Querformat-Aquarellpapier': '44498697494795',
-  'S-Querformat-Leinwand': '44498697527563',
-  // M - Hochformat
-  'M-Hochformat-LightBeton': '44498697560331',
-  'M-Hochformat-Aquarellpapier': '44498697593099',
-  'M-Hochformat-Leinwand': '44498697625867',
-  // M - Querformat
-  'M-Querformat-LightBeton': '44498697658635',
-  'M-Querformat-Aquarellpapier': '44498697691403',
-  'M-Querformat-Leinwand': '44498697724171',
-  // L - Hochformat
-  'L-Hochformat-LightBeton': '44498697756939',
-  'L-Hochformat-Aquarellpapier': '44498697789707',
-  'L-Hochformat-Leinwand': '44498697822475',
-  // L - Querformat
-  'L-Querformat-LightBeton': '44498697855243',
-  'L-Querformat-Aquarellpapier': '44498697888011',
-  'L-Querformat-Leinwand': '44498697920779',
-  // XL - Hochformat
-  'XL-Hochformat-LightBeton': '44498697953547',
-  'XL-Hochformat-Aquarellpapier': '44498697986315',
-  'XL-Hochformat-Leinwand': '44498698019083',
-  // XL - Querformat
-  'XL-Querformat-LightBeton': '44498698051851',
-  'XL-Querformat-Aquarellpapier': '44498698084619',
-  'XL-Querformat-Leinwand': '44498698117387',
-};
-
-// Price mapping (in EUR)
-const PRICE_MAP: Record<string, number> = {
-  'S-Hochformat-LightBeton': 0,
-  'S-Hochformat-Aquarellpapier': 0,
-  'S-Hochformat-Leinwand': 0,
-  'S-Querformat-LightBeton': 0,
-  'S-Querformat-Aquarellpapier': 0,
-  'S-Querformat-Leinwand': 0,
-  'M-Hochformat-LightBeton': 200,
-  'M-Hochformat-Aquarellpapier': 200,
-  'M-Hochformat-Leinwand': 200,
-  'M-Querformat-LightBeton': 200,
-  'M-Querformat-Aquarellpapier': 200,
-  'M-Querformat-Leinwand': 200,
-  'L-Hochformat-LightBeton': 400,
-  'L-Hochformat-Aquarellpapier': 400,
-  'L-Hochformat-Leinwand': 400,
-  'L-Querformat-LightBeton': 400,
-  'L-Querformat-Aquarellpapier': 400,
-  'L-Querformat-Leinwand': 400,
-  'XL-Hochformat-LightBeton': 800,
-  'XL-Hochformat-Aquarellpapier': 800,
-  'XL-Hochformat-Leinwand': 800,
-  'XL-Querformat-LightBeton': 800,
-  'XL-Querformat-Aquarellpapier': 800,
-  'XL-Querformat-Leinwand': 800,
-};
+import { ArrowRight, Check, Upload, X, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import { usePricingRules, calculateTotalPrice } from '@/hooks/usePricingRules';
 
 const SIZES = [
   { value: 'S', label: 'S', dimensions: '20 × 30 cm' },
@@ -83,35 +24,140 @@ const ORIENTATIONS = [
 ];
 
 const MATERIALS = [
-  { value: 'LightBeton', label: 'LightBeton', description: 'Robuste Betonoptik' },
-  { value: 'Aquarellpapier', label: 'Aquarellpapier', description: 'Feine Papierstruktur' },
-  { value: 'Leinwand', label: 'Leinwand', description: 'Klassischer Canvas-Look' },
+  { value: 'LightBeton', label: 'LightBeton' },
+  { value: 'Aquarellpapier', label: 'Aquarellpapier' },
+  { value: 'Leinwand', label: 'Leinwand' },
+];
+
+const ADDON_OPTIONS = [
+  { key: 'custom_text', hasInput: true },
+  { key: 'premium_finish', hasInput: false },
+  { key: 'gold_accents', hasInput: false },
+  { key: 'extra_colors', hasInput: false },
 ];
 
 const STEPS = [
-  { number: 1, label: 'Konfigurieren', active: true },
-  { number: 2, label: 'Gestalten', active: false },
-  { number: 3, label: 'Bestellen', active: false },
+  { number: 1, label: 'Konfigurieren' },
+  { number: 2, label: 'Gestalten' },
+  { number: 3, label: 'Bestellen' },
 ];
 
 const Konfigurator = () => {
   const [size, setSize] = useState('M');
   const [orientation, setOrientation] = useState('Hochformat');
   const [material, setMaterial] = useState('LightBeton');
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+  const [customText, setCustomText] = useState('');
+  const [designFile, setDesignFile] = useState<File | null>(null);
+  const [designPreview, setDesignPreview] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [activeStep, setActiveStep] = useState(1);
 
-  const variantKey = `${size}-${orientation}-${material}`;
-  const variantId = VARIANT_MAP[variantKey];
-  const price = PRICE_MAP[variantKey] || 0;
+  const { data: rules = [], isLoading: rulesLoading } = usePricingRules();
+
+  const totalPrice = calculateTotalPrice(rules, size, material, selectedAddons);
+
+  // Build addon info from rules
+  const addonRules = rules.filter(r => r.category === 'addon');
+  const materialRules = rules.filter(r => r.category === 'material');
+
+  const getMaterialDescription = (key: string) => {
+    const rule = materialRules.find(r => r.option_key === key);
+    if (!rule) return '';
+    return rule.description || '';
+  };
+
+  const getMaterialSurcharge = (key: string) => {
+    const rule = materialRules.find(r => r.option_key === key);
+    return rule ? Number(rule.price_eur) : 0;
+  };
+
+  const toggleAddon = (key: string) => {
+    setSelectedAddons(prev =>
+      prev.includes(key) ? prev.filter(a => a !== key) : [...prev, key]
+    );
+    if (key === 'custom_text' && selectedAddons.includes('custom_text')) {
+      setCustomText('');
+    }
+  };
+
+  const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 20 * 1024 * 1024) {
+      toast.error('Datei zu groß', { description: 'Maximal 20 MB erlaubt.' });
+      return;
+    }
+    setDesignFile(file);
+    setDesignPreview(URL.createObjectURL(file));
+    setActiveStep(2);
+  }, []);
+
+  const removeDesign = () => {
+    setDesignFile(null);
+    if (designPreview) URL.revokeObjectURL(designPreview);
+    setDesignPreview(null);
+  };
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      let designImageUrl: string | undefined;
+
+      // Upload design if present
+      if (designFile) {
+        const ext = designFile.name.split('.').pop();
+        const path = `${crypto.randomUUID()}.${ext}`;
+        const { error: uploadError } = await supabase.storage
+          .from('design-uploads')
+          .upload(path, designFile);
+        if (uploadError) throw new Error(`Upload fehlgeschlagen: ${uploadError.message}`);
+        
+        const { data: urlData } = supabase.storage
+          .from('design-uploads')
+          .getPublicUrl(path);
+        designImageUrl = urlData.publicUrl;
+      }
+
+      // Call edge function
+      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+      const res = await fetch(
+        `https://${projectId}.supabase.co/functions/v1/create-custom-order`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({
+            size,
+            orientation,
+            material,
+            addons: selectedAddons,
+            customText: selectedAddons.includes('custom_text') ? customText : undefined,
+            designImageUrl,
+          }),
+        }
+      );
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Bestellung fehlgeschlagen');
+      }
+
+      // Redirect to Shopify checkout
+      window.open(data.checkoutUrl, '_blank');
+      toast.success('Bestellung erstellt!', { description: 'Du wirst zum Checkout weitergeleitet.' });
+      setActiveStep(3);
+    } catch (err: any) {
+      console.error('Order error:', err);
+      toast.error('Fehler', { description: err.message });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const selectedSize = SIZES.find(s => s.value === size);
-
-  const shopifyUrl = useMemo(() => {
-    return `https://urban-artery.myshopify.com/products/masterprodukt-individuelle-streetart?variant=${variantId}`;
-  }, [variantId]);
-
-  const handleStartDesign = () => {
-    window.location.href = shopifyUrl;
-  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -139,13 +185,13 @@ const Konfigurator = () => {
             <div className="flex justify-center items-center gap-2 md:gap-4 mb-12">
               {STEPS.map((step, index) => (
                 <div key={step.number} className="flex items-center">
-                  <div className={`flex items-center gap-2 px-3 py-2 rounded-full ${
-                    step.active 
+                  <div className={`flex items-center gap-2 px-3 py-2 rounded-full transition-colors ${
+                    activeStep >= step.number 
                       ? 'bg-primary text-primary-foreground' 
                       : 'bg-muted text-muted-foreground'
                   }`}>
                     <span className="w-6 h-6 flex items-center justify-center rounded-full bg-background/20 text-sm font-bold">
-                      {step.number}
+                      {activeStep > step.number ? <Check className="w-4 h-4" /> : step.number}
                     </span>
                     <span className="hidden md:inline text-sm font-medium">{step.label}</span>
                   </div>
@@ -173,16 +219,27 @@ const Konfigurator = () => {
                 <div className={`relative bg-muted rounded-lg overflow-hidden ${
                   orientation === 'Hochformat' ? 'aspect-[3/4]' : 'aspect-[4/3]'
                 } transition-all duration-300`}>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                        <span className="text-4xl">🎨</span>
+                  {designPreview ? (
+                    <>
+                      <img src={designPreview} alt="Dein Design" className="w-full h-full object-cover" />
+                      <button onClick={removeDesign} className="absolute top-3 right-3 p-1.5 bg-background/80 rounded-full hover:bg-background">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </>
+                  ) : (
+                    <label className="absolute inset-0 flex items-center justify-center cursor-pointer hover:bg-muted/80 transition-colors">
+                      <div className="text-center p-8">
+                        <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                          <Upload className="w-10 h-10 text-primary/60" />
+                        </div>
+                        <p className="text-muted-foreground text-sm font-medium">
+                          Klicke hier, um dein Design hochzuladen
+                        </p>
+                        <p className="text-muted-foreground/60 text-xs mt-1">JPG, PNG, PDF – max. 20 MB</p>
                       </div>
-                      <p className="text-muted-foreground text-sm">
-                        Dein Design erscheint hier
-                      </p>
-                    </div>
-                  </div>
+                      <input type="file" accept="image/*,.pdf" className="hidden" onChange={handleFileChange} />
+                    </label>
+                  )}
                   {/* Material texture overlay */}
                   <div className={`absolute inset-0 opacity-20 pointer-events-none ${
                     material === 'LightBeton' ? 'bg-gradient-to-br from-stone-400 to-stone-600' :
@@ -206,23 +263,29 @@ const Konfigurator = () => {
                 <div>
                   <h3 className="text-lg font-bold mb-4 uppercase tracking-wide">Größe</h3>
                   <div className="grid grid-cols-4 gap-3">
-                    {SIZES.map((s) => (
-                      <button
-                        key={s.value}
-                        onClick={() => setSize(s.value)}
-                        className={`relative p-4 rounded-lg border-2 transition-all ${
-                          size === s.value
-                            ? 'border-primary bg-primary/5'
-                            : 'border-border hover:border-primary/50'
-                        }`}
-                      >
-                        {size === s.value && (
-                          <Check className="absolute top-2 right-2 w-4 h-4 text-primary" />
-                        )}
-                        <div className="text-2xl font-bold">{s.label}</div>
-                        <div className="text-xs text-muted-foreground mt-1">{s.dimensions}</div>
-                      </button>
-                    ))}
+                    {SIZES.map((s) => {
+                      const baseRule = rules.find(r => r.category === 'base_size' && r.option_key === s.value);
+                      return (
+                        <button
+                          key={s.value}
+                          onClick={() => setSize(s.value)}
+                          className={`relative p-4 rounded-lg border-2 transition-all ${
+                            size === s.value
+                              ? 'border-primary bg-primary/5'
+                              : 'border-border hover:border-primary/50'
+                          }`}
+                        >
+                          {size === s.value && <Check className="absolute top-2 right-2 w-4 h-4 text-primary" />}
+                          <div className="text-2xl font-bold">{s.label}</div>
+                          <div className="text-xs text-muted-foreground mt-1">{s.dimensions}</div>
+                          {baseRule && (
+                            <div className="text-xs font-semibold text-primary mt-1">
+                              €{Number(baseRule.price_eur).toFixed(0)}
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -240,9 +303,7 @@ const Konfigurator = () => {
                             : 'border-border hover:border-primary/50'
                         }`}
                       >
-                        {orientation === o.value && (
-                          <Check className="absolute top-2 right-2 w-4 h-4 text-primary" />
-                        )}
+                        {orientation === o.value && <Check className="absolute top-2 right-2 w-4 h-4 text-primary" />}
                         <div className="text-3xl mb-2">{o.icon}</div>
                         <div className="font-medium">{o.label}</div>
                       </button>
@@ -254,44 +315,101 @@ const Konfigurator = () => {
                 <div>
                   <h3 className="text-lg font-bold mb-4 uppercase tracking-wide">Material</h3>
                   <div className="space-y-3">
-                    {MATERIALS.map((m) => (
-                      <button
-                        key={m.value}
-                        onClick={() => setMaterial(m.value)}
-                        className={`relative w-full p-4 rounded-lg border-2 transition-all text-left ${
-                          material === m.value
-                            ? 'border-primary bg-primary/5'
-                            : 'border-border hover:border-primary/50'
-                        }`}
-                      >
-                        {material === m.value && (
-                          <Check className="absolute top-4 right-4 w-5 h-5 text-primary" />
-                        )}
-                        <div className="font-bold">{m.label}</div>
-                        <div className="text-sm text-muted-foreground">{m.description}</div>
-                      </button>
-                    ))}
+                    {MATERIALS.map((m) => {
+                      const surcharge = getMaterialSurcharge(m.value);
+                      return (
+                        <button
+                          key={m.value}
+                          onClick={() => setMaterial(m.value)}
+                          className={`relative w-full p-4 rounded-lg border-2 transition-all text-left ${
+                            material === m.value
+                              ? 'border-primary bg-primary/5'
+                              : 'border-border hover:border-primary/50'
+                          }`}
+                        >
+                          {material === m.value && <Check className="absolute top-4 right-4 w-5 h-5 text-primary" />}
+                          <div className="font-bold">{m.label}</div>
+                          <div className="text-sm text-muted-foreground">
+                            {getMaterialDescription(m.value)}
+                            {surcharge > 0 && <span className="ml-2 text-primary font-medium">+€{surcharge.toFixed(0)}</span>}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Add-ons */}
+                <div>
+                  <h3 className="text-lg font-bold mb-4 uppercase tracking-wide">Extras</h3>
+                  <div className="space-y-3">
+                    {ADDON_OPTIONS.map((addon) => {
+                      const rule = addonRules.find(r => r.option_key === addon.key);
+                      if (!rule) return null;
+                      const isSelected = selectedAddons.includes(addon.key);
+                      return (
+                        <div key={addon.key} className={`p-4 rounded-lg border-2 transition-all ${
+                          isSelected ? 'border-primary bg-primary/5' : 'border-border'
+                        }`}>
+                          <div className="flex items-center gap-3">
+                            <Checkbox
+                              id={addon.key}
+                              checked={isSelected}
+                              onCheckedChange={() => toggleAddon(addon.key)}
+                            />
+                            <Label htmlFor={addon.key} className="flex-1 cursor-pointer">
+                              <span className="font-bold">{rule.label}</span>
+                              <span className="text-sm text-muted-foreground ml-2">
+                                +€{Number(rule.price_eur).toFixed(0)}
+                              </span>
+                              {rule.description && (
+                                <p className="text-xs text-muted-foreground mt-0.5">{rule.description}</p>
+                              )}
+                            </Label>
+                          </div>
+                          {addon.hasInput && isSelected && (
+                            <Input
+                              className="mt-3"
+                              placeholder="Dein Text..."
+                              value={customText}
+                              onChange={(e) => setCustomText(e.target.value)}
+                              maxLength={100}
+                            />
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
                 {/* Price & CTA */}
                 <div className="pt-6 border-t border-border">
                   <div className="flex items-center justify-between mb-6">
-                    <span className="text-muted-foreground">Startpreis</span>
+                    <span className="text-muted-foreground">Gesamtpreis</span>
                     <span className="text-3xl font-black">
-                      {price === 0 ? 'Kostenlos' : `€${price.toLocaleString('de-DE')}`}
+                      {rulesLoading ? '...' : `€${totalPrice.toFixed(0)}`}
                     </span>
                   </div>
                   <Button 
-                    onClick={handleStartDesign}
+                    onClick={handleSubmit}
                     size="lg"
                     className="w-full text-lg font-bold uppercase tracking-wider py-6"
+                    disabled={isSubmitting || rulesLoading}
                   >
-                    Jetzt gestalten
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 w-5 h-5 animate-spin" />
+                        Wird erstellt...
+                      </>
+                    ) : (
+                      <>
+                        Jetzt bestellen
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </>
+                    )}
                   </Button>
                   <p className="text-xs text-muted-foreground text-center mt-4">
-                    Du wirst zu unserem Konfigurator weitergeleitet
+                    Du wirst zum Shopify Checkout weitergeleitet
                   </p>
                 </div>
               </motion.div>
