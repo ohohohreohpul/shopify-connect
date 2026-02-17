@@ -12,6 +12,7 @@ interface ProductSectionProps {
   showCarousel?: boolean;
   accentColor?: 'pink' | 'default';
   isLoading?: boolean;
+  productUrlFn?: (product: ShopifyProduct) => string | undefined;
 }
 
 export const ProductSection = ({ 
@@ -19,7 +20,8 @@ export const ProductSection = ({
   products, 
   showCarousel = false,
   accentColor = 'default',
-  isLoading = false
+  isLoading = false,
+  productUrlFn
 }: ProductSectionProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const skeletonCount = showCarousel ? 6 : 8;
@@ -98,7 +100,7 @@ export const ProductSection = ({
                 ))
               : products.map((product) => (
                   <div key={product.node.id} className="flex-shrink-0 w-[260px] md:w-[300px]">
-                    <ProductCard product={product} />
+                    <ProductCard product={product} customUrl={productUrlFn?.(product)} />
                   </div>
                 ))}
           </div>
@@ -109,7 +111,7 @@ export const ProductSection = ({
                   <ProductCardSkeleton key={i} />
                 ))
               : products.map((product) => (
-                  <ProductCard key={product.node.id} product={product} />
+                  <ProductCard key={product.node.id} product={product} customUrl={productUrlFn?.(product)} />
                 ))}
           </div>
         )}

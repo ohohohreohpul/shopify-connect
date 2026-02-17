@@ -68,6 +68,10 @@ const Index = () => {
               products={featuredProducts} 
               showCarousel
               isLoading={loading}
+              productUrlFn={(product) => {
+                const numId = product.node.id.replace('gid://shopify/Product/', '');
+                return `https://urban-artery.com/apps/zakeke?pid=${numId}`;
+              }}
             />
 
             {/* Urban Artery Video */}
