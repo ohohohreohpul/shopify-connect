@@ -59,7 +59,7 @@ const Index = () => {
           <>
             {/* Featured Products Carousel */}
             <ProductSection 
-              title="Beliebte Werke" 
+              title="Starke Werke" 
               products={featuredProducts} 
               showCarousel
               isLoading={loading}
